@@ -8,7 +8,7 @@ export const Header = () => {
           <Image alt="" src="/pinelogo.png" width={28} height={28} />
           <h1 className="text-white">Ecommerce</h1>
         </div>
-        <div className="relative">
+        <div className="">
           <Image alt="" src="/search.png" width={24} height={24} />
           <input className="rounded" type="text" placeholder="Хайлт" />
         </div>
