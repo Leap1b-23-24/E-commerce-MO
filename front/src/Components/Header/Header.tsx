@@ -8,10 +8,9 @@ export const Header = () => {
           <Image alt="" src="/pinelogo.png" width={28} height={28} />
           <h1 className="text-white">Ecommerce</h1>
         </div>
-        <div>
-          <input className="rounded" type="Search" alt="" src="/search.png" width={24} height={24} />
-          {/* <Image alt="" src="/search.png" width={24} height={24} /> */}
-          <p className="text-slate-200">Хайлт</p>
+        <div className="relative">
+          <Image alt="" src="/search.png" width={24} height={24} />
+          <input className="rounded" type="text" placeholder="Хайлт" />
         </div>
         <div></div>
       </div>
