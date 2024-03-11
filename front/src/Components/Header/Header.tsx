@@ -2,6 +2,7 @@ import Image from "next/image";
 
 export const Header = () => {
   return (
+
     <div className="bg-teal-500 w-full">
       <div className="flex w-full justify-center items-center gap-16">
         <div className="flex gap-3 p-4">
@@ -23,5 +24,6 @@ export const Header = () => {
         </div>
       </div>
     </div >
+
   );
 };
