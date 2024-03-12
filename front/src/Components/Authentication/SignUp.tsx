@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CustomInput } from "./CustomInput";
 
 const loginSelect = [
   { logo: "/google.png", text: "Google-ээр нэвтрэх" },
@@ -13,25 +14,12 @@ export const SignUp = () => {
         Бүртгүүлэх
       </h2>
       <div className="flex flex-col gap-4  ">
-        <div className="flex flex-col gap-2">
-          <p>Таны имэйл</p>
-          <input
-            className="px-2 py-4 border border-[#D6D8DB] rounded-lg bg-[#F7F7F8]"
-            placeholder="Имэйл"
-            type="text"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <p>Таны нэр</p>
-          <input
-            className="px-2 py-4 border border-[#D6D8DB] rounded-lg bg-[#F7F7F8]"
-            placeholder="Нэр"
-            type="text"
-          />
-        </div>
-        <button className="px-5 py-4 bg-[#121316] flex text-white text-lg font-normal justify-between items-center rounded-lg">
+        <CustomInput label="Таны имэйл" placeholder="Имэйл" type="text" />
+        <CustomInput label="Таны нэр" placeholder="Нэр" type="text" />
+
+        <button className="px-5 py-4 bg-gray-200 flex text-lg text-white font-normal justify-between items-center rounded-lg">
           <p className="text-transparent">N</p>
-          <p className="px-1 ">Дараах</p>
+          <p className="px-1 text-[#fff]">Дараах</p>
           <Image
             src={"/svg/arrow.svg"}
             alt="arrow right"
