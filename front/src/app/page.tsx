@@ -11,7 +11,10 @@ export default function Home() {
     <main className="flex flex-col min-h-screen items-center justify-between">
       <Header />
       <Menu />
+
+
       <LeftButton />
+
       <Footer />
     </main>
   );
