@@ -1,5 +1,6 @@
 import { SignUp } from "@/Components/Authentication/SignUp";
 import { DashboardLeft } from "@/Components/DashboardLeft";
+import { DeliveryInfo } from "@/Components/DeliveryInfo";
 import { Footer } from "@/Components/Header/Footer";
 import { Header } from "@/Components/Header/Header";
 import { Menu } from "@/Components/Header/Menu";
@@ -12,8 +13,9 @@ export default function Home() {
       <Header />
       <Menu />
 
-
       <LeftButton />
+
+      <DeliveryInfo />
 
       <Footer />
     </main>
