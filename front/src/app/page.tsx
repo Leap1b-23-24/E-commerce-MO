@@ -1,4 +1,5 @@
 import { SignUp } from "@/Components/Authentication/SignUp";
+import { DashboardLeft } from "@/Components/DashboardLeft";
 import { Footer } from "@/Components/Header/Footer";
 import { Header } from "@/Components/Header/Header";
 import Image from "next/image";
