@@ -1,29 +1,21 @@
-import Image from "next/image";
+import { ArrowForward } from "@mui/icons-material";
+import { Button, Typography } from "@mui/material";
 type NextBtnProps = {
-  textpos?: string;
-  px: string;
-  py: string;
-  color: string;
-  bgcolor: string;
+  disabled?: boolean;
 };
+
 export const NextBtn = (props: NextBtnProps) => {
+  const { disabled } = props;
   return (
-    <button
-      style={{ backgroundColor: props.bgcolor, color: props.color }}
-      className={`relative flex px-${props.px} py-${props.py} gap-0.5 justify-end flex text-lg text-white font-normal items-center rounded-lg`}
+    <Button
+      variant="contained"
+      color="secondary"
+      disableElevation={false}
+      endIcon={<ArrowForward />}
+      sx={{ py: "16px", px: "20px" }}
+      disabled={disabled}
     >
-      <p
-        className={`absolute ${props.textpos} right-1/2 translate-x-1/2 px-1 text-white`}
-      >
-        Дараах
-      </p>
-      <Image
-        className=""
-        src={"/svg/arrow.svg"}
-        alt="arrow right"
-        width={24}
-        height={24}
-      />
-    </button>
+      <Typography width={1}>Дараах</Typography>
+    </Button>
   );
 };

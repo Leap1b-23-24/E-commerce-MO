@@ -1,50 +1,102 @@
 import Image from "next/image";
 import { CustomInput } from "./CustomInput";
 import { NextBtn } from "../NextBtn";
-
+import { Container, Divider, Stack, Typography } from "@mui/material";
+import { Dispatch, SetStateAction } from "react";
+import { SetFlag } from "yup";
+type SignUpProps = {
+  setStep: Dispatch<SetStateAction<number>>;
+};
 const loginSelect = [
   { logo: "/google.png", text: "Google-ээр нэвтрэх" },
   { logo: "/microsoft.png", text: "Microsoft-оор нэвтрэх" },
   { logo: "/apple.png", text: "Apple-аар нэвтрэх" },
 ];
 
-export const SignUp = () => {
+export const SignUp = (props: SignUpProps) => {
+  const { setStep } = props;
   return (
-    <div className="flex flex-col w-full border border-[#ECEDF0] rounded-xl p-10 gap-6 bg-white">
-      <h2 className="text-[32px] font-bold width-full text-[#121316] text-center">
+    <Stack
+      minWidth="440px"
+      bgcolor={"common.white"}
+      border={1}
+      borderRadius={2}
+      borderColor={"#ECEDF0"}
+      p={5}
+      gap={3}
+    >
+      <Typography
+        textAlign={"center"}
+        fontSize={32}
+        fontWeight={700}
+        color={"secondary.main"}
+      >
         Бүртгүүлэх
-      </h2>
-      <div className="flex flex-col gap-4  ">
+      </Typography>
+      <Stack gap={2}>
         <CustomInput label="Таны имэйл" placeholder="Имэйл" type="text" />
         <CustomInput label="Таны нэр" placeholder="Нэр" type="text" />
+        <CustomInput
+          label="Нууц үг"
+          placeholder="Нууц үг оруулах"
+          type="text"
+        />
+        <CustomInput
+          label="Нууц үг давтах"
+          placeholder="Нууц үг давтах"
+          type="text"
+        />
 
-        <NextBtn px="5" py="4" bgcolor="#121316" color="#1C20243D" />
-        <div className="Social flex flex-col gap-4">
-          <div className="Line py-5 ">
-            <div className="bg-[#ECEDF0] h-px"></div>
-          </div>
+        <Stack
+          onClick={() => {
+            setStep(0);
+          }}
+        >
+          <NextBtn />
+        </Stack>
+        <Divider sx={{ marginY: "16px" }} />
+        <Stack gap={2}>
           {loginSelect.map((item, index) => (
-            <div
+            <Stack
               key={index}
-              className="flex rounded-md bg-[#1C20240A] py-3 px-4 gap-1 text-center justify-center items-center cursor-pointer"
+              flexDirection={"row"}
+              borderRadius={1}
+              bgcolor={"#1C20240A"}
+              py={1.5}
+              px={2}
+              gap={0.5}
+              justifyContent={"center"}
+              alignItems={"center"}
+              sx={{ cursor: "pointer" }}
             >
-              <Image src={item.logo} alt="google logo" width={24} height={24} />
-              <p className="py-0.5 px-1">{item.text}</p>
-            </div>
+              <Stack position={"relative"} width={24} height={24}>
+                <Image src={item.logo} alt="google logo" fill sizes="small" />
+              </Stack>
+              <Typography py={0.25} px={0.5}>
+                {item.text}
+              </Typography>
+            </Stack>
           ))}
-        </div>
-        <div className="flex flex-col">
-          <div className="Line py-5 ">
-            <div className="bg-[#ECEDF0] h-px"></div>
-          </div>
-          <div className="flex text-sm font-normal py-2 gap-1 items-center justify-center">
-            <p className="text-[#525252]">Бүртгэлтэй юу?</p>
-            <span className="underline underline-offset-4 cursor-pointer ">
-              Нэвтрэх
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+        </Stack>
+        <Divider sx={{ marginY: "16px" }} />
+        <Stack
+          flexDirection={"row"}
+          fontSize={14}
+          fontWeight={400}
+          py={1}
+          gap={0.5}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
+          <Typography color={"#525252"}>Бүртгэлтэй юу?</Typography>
+          <Typography
+            sx={{ cursor: "pointer" }}
+            className="underline underline-offset-4 cursor-pointer "
+          >
+            Нэвтрэх
+          </Typography>
+        </Stack>
+      </Stack>
+    </Stack>
   );
 };
