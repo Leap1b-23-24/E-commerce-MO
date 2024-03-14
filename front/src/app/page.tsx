@@ -5,6 +5,7 @@ import { Footer } from "@/Components/Header/Footer";
 import { Header } from "@/Components/Header/Header";
 import { Menu } from "@/Components/Header/Menu";
 import { LeftButton } from "@/Components/Leftbutton";
+import { Ordertable } from "@/Components/Order-table";
 import { Table } from "@/Components/Table";
 import Image from "next/image";
 
@@ -17,6 +18,7 @@ export default function Home() {
       <LeftButton />
 
       <DeliveryInfo />
+      <Ordertable />
 
       <Footer />
     </main>
