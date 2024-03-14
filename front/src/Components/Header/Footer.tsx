@@ -1,3 +1,4 @@
+import { Container } from "@mui/material";
 import Image from "next/image";
 
 const footerMenu = [
@@ -12,7 +13,10 @@ const socialImg = ["/facebook.png", "/instagram.png", "/twitter.png"];
 export const Footer = () => {
   return (
     <footer className="w-screen  bg-[#12A795]">
-      <main className="flex flex-col  py-[50px] max-w-[1200px] w-fit m-auto  justify-center items-center gap-12 color-[#FFFFFF]">
+      <Container
+        maxWidth="lg"
+        className="flex flex-col  py-[50px] max-w-[1200px] w-fit m-auto  justify-center items-center gap-12 color-[#FFFFFF]"
+      >
         <div className="flex items-center  justify-center gap-2 text-white text-xl font-bold ">
           <Image alt="footer logo" src="/logo.png" width={41} height={41} />
           <p>Ecommerce</p>
@@ -42,7 +46,7 @@ export const Footer = () => {
             <p>Зохиогчийн эрх хуулиар хамгаалагдсан.</p>
           </div>
         </div>
-      </main>
+      </Container>
     </footer>
   );
 };

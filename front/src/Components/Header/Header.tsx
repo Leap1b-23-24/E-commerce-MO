@@ -2,13 +2,16 @@ import Image from "next/image";
 
 export const Header = () => {
   return (
-    <div className="bg-teal-500 w-full">
+    <div className="bg-primary w-full">
       <div className="flex w-full justify-around items-center">
         <div className="flex gap-3 p-4">
           <Image alt="" src="/pinelogo.png" width={38} height={28} />
           <h1 className="text-white text-2xl">Ecommerce</h1>
         </div>
-        <div className="flex relative w-[500px] h-[48px] group justify-center items-center z-1001 bg-white rounded-lg">
+        <div
+          className="flex relative w-[500px] h-[48px] group justify-center items-center z-1001 bg-white
+         rounded-lg"
+        >
           <span className="flex absolute left-3 bg-transparent rounded text-base text-gray-600">
             <svg
               width="32"
