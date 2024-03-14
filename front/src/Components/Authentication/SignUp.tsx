@@ -1,11 +1,25 @@
 import Image from "next/image";
 import { CustomInput } from "./CustomInput";
 import { NextBtn } from "../NextBtn";
-import { Container, Divider, Stack, Typography } from "@mui/material";
-import { Dispatch, SetStateAction } from "react";
+import { Divider, Stack, Typography } from "@mui/material";
+import { ChangeEventHandler, Dispatch, SetStateAction } from "react";
 import { SetFlag } from "yup";
 type SignUpProps = {
   setStep: Dispatch<SetStateAction<number>>;
+  userName: string;
+  email: string;
+  password: string;
+  repassword: string;
+  handleChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  handleBlur?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  errorEmail?: boolean;
+  errorName?: boolean;
+  errorPassword?: boolean;
+  errorRepassword?: boolean;
+  helperTextEmail?: any;
+  helperTextName?: any;
+  helperTextPassword?: any;
+  helperTextRepassword?: any;
 };
 const loginSelect = [
   { logo: "/google.png", text: "Google-ээр нэвтрэх" },
@@ -14,10 +28,37 @@ const loginSelect = [
 ];
 
 export const SignUp = (props: SignUpProps) => {
-  const { setStep } = props;
+  const {
+    setStep,
+    email,
+    userName,
+    password,
+    repassword,
+    handleChange,
+    handleBlur,
+    errorEmail,
+    errorName,
+    errorPassword,
+    errorRepassword,
+    helperTextEmail,
+    helperTextName,
+    helperTextPassword,
+    helperTextRepassword,
+  } = props;
+
+  const disableStatus =
+    errorEmail ||
+    errorName ||
+    errorPassword ||
+    errorRepassword ||
+    !Boolean(userName) ||
+    !Boolean(email) ||
+    !Boolean(password) ||
+    !Boolean(repassword);
+
   return (
     <Stack
-      minWidth="440px"
+      width="440px"
       bgcolor={"common.white"}
       border={1}
       borderRadius={2}
@@ -34,26 +75,56 @@ export const SignUp = (props: SignUpProps) => {
         Бүртгүүлэх
       </Typography>
       <Stack gap={2}>
-        <CustomInput label="Таны имэйл" placeholder="Имэйл" type="text" />
-        <CustomInput label="Таны нэр" placeholder="Нэр" type="text" />
+        <CustomInput
+          label="Таны имэйл"
+          placeholder="Имэйл"
+          type="text"
+          name="email"
+          value={email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errorEmail}
+          helperText={helperTextEmail}
+        />
+        <CustomInput
+          label="Таны нэр"
+          placeholder="Нэр"
+          type="text"
+          name="userName"
+          value={userName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errorName}
+          helperText={helperTextName}
+        />
         <CustomInput
           label="Нууц үг"
           placeholder="Нууц үг оруулах"
           type="text"
+          name="password"
+          value={password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errorPassword}
+          helperText={helperTextPassword}
         />
         <CustomInput
           label="Нууц үг давтах"
           placeholder="Нууц үг давтах"
           type="text"
+          name="repassword"
+          value={repassword}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errorRepassword}
+          helperText={helperTextRepassword}
         />
-
-        <Stack
+        <NextBtn
           onClick={() => {
             setStep(0);
           }}
-        >
-          <NextBtn />
-        </Stack>
+          disabled={disableStatus}
+        />
         <Divider sx={{ marginY: "16px" }} />
         <Stack gap={2}>
           {loginSelect.map((item, index) => (

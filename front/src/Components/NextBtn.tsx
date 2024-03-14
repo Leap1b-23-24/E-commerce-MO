@@ -2,12 +2,14 @@ import { ArrowForward } from "@mui/icons-material";
 import { Button, Typography } from "@mui/material";
 type NextBtnProps = {
   disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export const NextBtn = (props: NextBtnProps) => {
-  const { disabled } = props;
+  const { disabled, onClick } = props;
   return (
     <Button
+      onClick={onClick}
       variant="contained"
       color="secondary"
       disableElevation={false}
