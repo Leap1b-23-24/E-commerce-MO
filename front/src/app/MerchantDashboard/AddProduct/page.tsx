@@ -1,3 +1,4 @@
+import { AddProducts } from "@/Components/AddProducts";
 import { MerchantDashboardHeader } from "@/Components/MerchantDashboardHeader";
 import { MerchantDashboardLeft } from "@/Components/MerchantDashboardLeft";
 import { Box, Stack } from "@mui/material";
@@ -10,7 +11,9 @@ export default function AddProduct() {
         <Box minWidth={"222px"}>
           <MerchantDashboardLeft />
         </Box>
-        <Stack>2</Stack>
+        <Stack width={1} height={1}>
+          <AddProducts />
+        </Stack>
       </Stack>
     </Stack>
   );

@@ -15,16 +15,22 @@ type CustomInputProps = {
   type: string;
   select?: boolean;
   placeholder?: string;
+  labelWeight?: number;
 };
 export const CustomInput = (props: TextFieldProps & CustomInputProps) => {
-  const { label, type, select, placeholder, ...rest } = props;
+  const { label, type, select, labelWeight, placeholder, ...rest } = props;
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
   return (
     <Stack gap={1}>
-      <Typography fontSize={16} fontWeight={400} color={"secondary.dark"}>
+      <Typography
+        fontSize={16}
+        fontWeight={Boolean(labelWeight) ? labelWeight : 400}
+        color={"secondary.dark"}
+        noWrap
+      >
         {label}
       </Typography>
       <TextField
