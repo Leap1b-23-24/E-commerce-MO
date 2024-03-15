@@ -1,10 +1,12 @@
-import { DashboardLeft } from '@/Components/DashboardLeft'
-import React from 'react'
+import { DashboardLeft } from "@/Components/MerchantDashboardLeft";
+import React from "react";
 
 const page = () => {
-    return (
-        <div><DashboardLeft /></div>
-    )
-}
+  return (
+    <div>
+      <DashboardLeft />
+    </div>
+  );
+};
 
 export default page;

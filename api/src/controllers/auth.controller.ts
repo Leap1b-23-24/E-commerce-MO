@@ -5,7 +5,17 @@ import { UserModel } from "../models/user.model";
 
 export const signUp: RequestHandler = async (req, res) => {
   try {
-    const { userName, email, phoneNumber } = req.body;
+    const {
+      userName,
+      email,
+      merchName,
+      city,
+      district,
+      khoroo,
+      experience,
+      merchType,
+      password,
+    } = req.body;
 
     const userExist = await UserModel.find({ email });
 
@@ -16,9 +26,13 @@ export const signUp: RequestHandler = async (req, res) => {
     }
 
     const user = await UserModel.create({
-      email,
       userName,
-      phoneNumber,
+      email,
+      merchName,
+      address: { city, district, khoroo },
+      experience,
+      merchType,
+      password,
       updatedAt: new Date(),
       createdAt: new Date(),
     });

@@ -9,6 +9,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { toast } from "react-toastify";
+import { useAuth } from "@/Components/Providers/AuthProvider";
 
 const validationSchema = yup.object({
   userName: yup.string().required("Хэрэглэгчийн нэр оруулна уу!"),
@@ -30,6 +32,7 @@ const validationSchema = yup.object({
 
 export default function Signup() {
   const [step, setStep] = useState(-1);
+  const { signUp } = useAuth();
   const formik = useFormik({
     initialValues: {
       userName: "",
@@ -45,7 +48,17 @@ export default function Signup() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(values.merchType);
+      signUp(
+        values.userName,
+        values.email,
+        values.merchName,
+        values.city,
+        values.district,
+        values.khoroo,
+        values.experience,
+        values.merchType,
+        values.password
+      );
       setStep(-1);
     },
   });
@@ -134,7 +147,7 @@ export default function Signup() {
           merchType={formik.values.merchType}
           handleChange={formik.handleChange}
           handleBlur={formik.handleBlur}
-          handleSubmit={formik.handleSubmit}
+          handleSubmit={formik.submitForm}
           errorExp={
             formik.touched.experience && Boolean(formik.errors.experience)
           }

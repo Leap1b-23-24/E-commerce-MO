@@ -2,12 +2,12 @@ import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
   userName: String,
-  email: Number,
-  phoneNumber: String,
+  email: String,
+  merchName: String,
+  address: { city: String, district: String, khoroo: String },
+  experience: String,
+  merchType: String,
   password: String,
-  address: String,
-  zipCode: Number,
-  cartId: String,
   createdAt: Date,
   updatedAt: Date,
 });

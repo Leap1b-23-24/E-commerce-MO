@@ -1,5 +1,5 @@
 import { SignUp } from "@/Components/Authentication/SignUp";
-import { DashboardLeft } from "@/Components/DashboardLeft";
+import { DashboardLeft } from "@/Components/MerchantDashboardLeft";
 import { DeliveryInfo } from "@/Components/DeliveryInfo";
 import { Footer } from "@/Components/Header/Footer";
 import { Header } from "@/Components/Header/Header";

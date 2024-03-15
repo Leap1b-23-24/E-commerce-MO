@@ -100,7 +100,7 @@ export const SignUp = (props: SignUpProps) => {
         <CustomInput
           label="Нууц үг"
           placeholder="Нууц үг оруулах"
-          type="text"
+          type="password"
           name="password"
           value={password}
           onChange={handleChange}
@@ -111,7 +111,7 @@ export const SignUp = (props: SignUpProps) => {
         <CustomInput
           label="Нууц үг давтах"
           placeholder="Нууц үг давтах"
-          type="text"
+          type="password"
           name="repassword"
           value={repassword}
           onChange={handleChange}
