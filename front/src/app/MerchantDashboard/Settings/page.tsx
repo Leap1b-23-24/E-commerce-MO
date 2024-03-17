@@ -1,9 +1,10 @@
-import { AddProducts } from "@/Components/AddProducts";
+"use client";
 import { MerchantDashboardHeader } from "@/Components/MerchantDashboardHeader";
 import { MerchantDashboardLeft } from "@/Components/MerchantDashboardLeft";
+import { ShopProfile } from "@/Components/ShopProfile";
 import { Box, Stack } from "@mui/material";
 
-export default function AddProduct() {
+export default function Product() {
   return (
     <Stack>
       <MerchantDashboardHeader />
@@ -11,8 +12,14 @@ export default function AddProduct() {
         <Box minWidth={"222px"}>
           <MerchantDashboardLeft />
         </Box>
-        <Stack width={1} height={1}>
-          <AddProducts />
+        <Stack
+          width={1}
+          height={"100vh"}
+          bgcolor={"#F7F7F8"}
+          alignItems={"center"}
+          pt={"49.5px"}
+        >
+          <ShopProfile />
         </Stack>
       </Stack>
     </Stack>

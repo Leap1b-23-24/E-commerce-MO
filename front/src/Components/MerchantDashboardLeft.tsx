@@ -23,7 +23,7 @@ const merchantNavList = [
   {
     text: "Бүтээгдэхүүн",
     icon: <ListAlt />,
-    path: "/MerchantDashboard/AddProduct",
+    path: "/MerchantDashboard/Product",
   },
   { text: "Тохиргоо", icon: <Settings />, path: "/MerchantDashboard/Settings" },
 ];

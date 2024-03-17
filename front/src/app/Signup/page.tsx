@@ -9,7 +9,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { toast } from "react-toastify";
 import { useAuth } from "@/Components/Providers/AuthProvider";
 
 const validationSchema = yup.object({

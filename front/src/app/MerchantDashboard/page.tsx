@@ -2,7 +2,7 @@ import { MerchantDashboardHeader } from "@/Components/MerchantDashboardHeader";
 import { MerchantDashboardLeft } from "@/Components/MerchantDashboardLeft";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 
-export default function MerchantDashboard() {
+export default function Settings() {
   return (
     <Stack>
       <MerchantDashboardHeader />

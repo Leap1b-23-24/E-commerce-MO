@@ -1,0 +1,24 @@
+import { Add } from "@mui/icons-material";
+import { Stack, TextField } from "@mui/material";
+
+export const AddBtn = () => {
+  return (
+    <Stack
+      position={"relative"}
+      bgcolor={"#ECEDF0"}
+      p={2}
+      borderRadius={"50%"}
+      sx={{ cursor: "pointer" }}
+    >
+      <Add
+        sx={{
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          translate: "-50% -50%",
+        }}
+        fontSize="small"
+      />
+    </Stack>
+  );
+};

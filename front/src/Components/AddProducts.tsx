@@ -1,17 +1,17 @@
 "use client";
-import {
-  Add,
-  ArrowBackIos,
-  VerticalAlignTopRounded,
-} from "@mui/icons-material";
-import { Stack, TextField, Typography } from "@mui/material";
-import { CustomInput } from "./Authentication/CustomInput";
-import { ChangeEvent, useState } from "react";
+import { ArrowBackIos } from "@mui/icons-material";
+import { Button, Stack, Typography } from "@mui/material";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { toast } from "react-toastify";
-import Image from "next/image";
+import { AddProductLeft } from "./AddProductLeft";
+import { AddProductRight } from "./AddProductRight";
 
-export const AddProducts = () => {
-  const [imageUrl, setImageUrl] = useState("");
+type AddProductsProps = {
+  setAdd: Dispatch<SetStateAction<boolean>>;
+};
+export const AddProducts = (props: AddProductsProps) => {
+  const { setAdd } = props;
+  const [imageUrl, setImageUrl] = useState(["1", "2", "3", "4"]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +25,7 @@ export const AddProducts = () => {
         const formData = new FormData();
         formData.append("file", selectedFile);
         const response = await fetch(
-          "https://api.cloudinary.com/v1_1/drik9j46w/upload?upload_preset=uhxxcxye",
+          "https://api.cloudinary.com/v1_1/drik9j46w/upload?upload_preset=wco4x3yn",
           {
             method: "POST",
             body: formData,
@@ -40,7 +40,7 @@ export const AddProducts = () => {
     }
   };
   return (
-    <Stack bgcolor={"#F7F7F8"} width={"100%"} height={"100vh"}>
+    <Stack bgcolor={"#F7F7F8"} width={1} height={"100%"}>
       <Stack
         flexDirection={"row"}
         alignItems={"center"}
@@ -49,116 +49,50 @@ export const AddProducts = () => {
         p={2}
         bgcolor={"common.white"}
       >
-        <ArrowBackIos fontSize="inherit" />
-        <Typography
-          fontSize={16}
-          ml={"18px"}
-          fontWeight={400}
+        <Stack
+          onClick={() => {
+            setAdd((prev) => !prev);
+          }}
+          flexDirection={"row"}
+          justifyContent={"center"}
+          alignItems={"center"}
           color={"secondary.dark"}
+          sx={{
+            cursor: "pointer",
+            "&:hover": {
+              color: "primary.main",
+            },
+          }}
         >
-          Бүтээгдэхүүн нэмэх
-        </Typography>
-      </Stack>
-      <Stack flexDirection={"row"} padding={"34px 24px 21px 32px"}>
-        <Stack gap={3} width={1}>
-          <Stack bgcolor={"common.white"} p={3} borderRadius={1.5} gap={2}>
-            <CustomInput
-              label="Бүтээгдэхүүний нэр"
-              type="text"
-              placeholder="Нэр"
-              labelWeight={600}
-            />{" "}
-            <CustomInput
-              label="Нэмэлт мэдээлэл"
-              type="text"
-              placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
-              labelWeight={600}
-            />{" "}
-            <CustomInput
-              label="Барааны код"
-              type="text"
-              placeholder="#12345678"
-              labelWeight={600}
-            />
-          </Stack>
-          <Stack bgcolor={"common.white"} p={3} borderRadius={1.5} gap={2}>
-            <Typography fontSize={18} fontWeight={600} color={"secondary.dark"}>
-              Бүтээгдэхүүний зураг
-            </Typography>
-            <Stack flexDirection={"row"} width={1} gap={1}>
-              <Stack
-                border={1}
-                borderRadius={2}
-                borderColor={"#D6D8DB"}
-                width={"125px"}
-                height={"125px"}
-                style={{
-                  borderStyle: "dashed",
-                }}
-                overflow={"hidden"}
-                position={"relative"}
-              >
-                <Image src={imageUrl} alt="productImg" fill />
-              </Stack>
-              <Stack
-                width={"125px"}
-                height={"125px"}
-                justifyContent={"center"}
-                alignItems={"center"}
-              >
-                <Stack
-                  width={32}
-                  height={32}
-                  justifyContent={"center"}
-                  alignItems={"center"}
-                  bgcolor={"#ECEDF0"}
-                  borderRadius={"50%"}
-                  onClick={handleImageUpload}
-                  overflow={"hidden"}
-                >
-                  <Stack
-                    sx={{ backgroundImage: `url(${imageUrl})` }}
-                    position={"absolute"}
-                  >
-                    <Add />
-                  </Stack>
-                  <TextField
-                    sx={{ opacity: 0 }}
-                    type="file"
-                    onChange={handleImageChange}
-                    variant="outlined"
-                  ></TextField>
-                </Stack>
-              </Stack>
-            </Stack>
-          </Stack>
-          <Stack
-            flexDirection={"row"}
-            bgcolor={"common.white"}
-            p={3}
-            borderRadius={1.5}
-            gap={2}
-            width={1}
-          >
-            <Stack width={0.5}>
-              <CustomInput
-                label="Үндсэн үнэ"
-                type="text"
-                placeholder="Үндсэн үнэ"
-                labelWeight={600}
-              />
-            </Stack>
-            <Stack width={0.5}>
-              <CustomInput
-                label="Үлдэгдэл тоо ширхэг"
-                type="text"
-                placeholder="Үлдэгдэл тоо ширхэг"
-                labelWeight={600}
-              />
-            </Stack>
-          </Stack>
+          <ArrowBackIos fontSize="inherit" />
+          <Typography fontSize={16} ml={"18px"} fontWeight={400}>
+            Бүтээгдэхүүн нэмэх
+          </Typography>
         </Stack>
-        <Stack gap={3} width={1}></Stack>
+      </Stack>
+      <Stack
+        flexDirection={"row"}
+        height={1}
+        gap={3}
+        padding={"34px 24px 21px 32px"}
+      >
+        <AddProductLeft />
+        <AddProductRight />
+      </Stack>
+      <Stack
+        flexDirection={"row"}
+        gap={3}
+        pt={"21px"}
+        pr={3}
+        pb={"106px"}
+        justifyContent={"end"}
+      >
+        <Button variant="outlined" color="secondary">
+          <Typography color={"secondary.dark"}>Ноорог</Typography>
+        </Button>
+        <Button variant="contained" color="secondary">
+          <Typography>Нийтлэх</Typography>
+        </Button>
       </Stack>
     </Stack>
   );
