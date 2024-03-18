@@ -1,6 +1,10 @@
 "use client";
 import { api } from "@/app/common/axios";
 import { AxiosError } from "axios";
+<<<<<<< HEAD
+=======
+import Error from "next/error";
+>>>>>>> 4f978d4 (test rebase)
 import {
   useContext,
   createContext,
