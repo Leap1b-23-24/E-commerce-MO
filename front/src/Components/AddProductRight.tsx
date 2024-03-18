@@ -2,13 +2,35 @@
 import { Button, Grid, Stack, Typography } from "@mui/material";
 import { CustomInput } from "./Authentication/CustomInput";
 import { Add, ImageOutlined } from "@mui/icons-material";
-import { useState } from "react";
+import { ChangeEventHandler, Dispatch, SetStateAction, useState } from "react";
 import { AddBtn } from "./AddBtn";
+import { MuiColorInput } from "mui-color-input";
+import { string } from "yup";
 
-export const AddProductRight = () => {
+type AddProductRightProps = {
+  productCategory: string;
+  productSubCategory: string;
+  productTag: string[];
+  handleChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  handleBlur?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  productColor: string[];
+  setProductColor: Dispatch<SetStateAction<string[]>>;
+};
+export const AddProductRight = (props: AddProductRightProps) => {
+  const {
+    productCategory,
+    productSubCategory,
+    productTag,
+    handleBlur,
+    handleChange,
+    productColor,
+    setProductColor,
+  } = props;
   const [imageUrl, setImageUrl] = useState(["1", "2", "3", "4"]);
-  const productColor = ["#1D1F24", "#DCDDE0", "#8D887D"];
+
   const productSize = ["Xs", "S", "M"];
+  const [value, setValue] = useState("#000000");
+
   return (
     <Stack gap={3} width={1}>
       <Stack bgcolor={"common.white"} p={3} borderRadius={1.5} gap={2}>
@@ -17,12 +39,20 @@ export const AddProductRight = () => {
           type="text"
           placeholder="Сонгох"
           labelWeight={600}
+          name="productCategory"
+          value={productCategory}
+          onBlur={handleBlur}
+          onChange={handleChange}
         />
         <CustomInput
           label="Дэд ангилал"
           type="text"
           placeholder="Cонгох"
           labelWeight={600}
+          name="productSubCategory"
+          value={productSubCategory}
+          onBlur={handleBlur}
+          onChange={handleChange}
         />
       </Stack>
       <Stack bgcolor={"common.white"} p={3} borderRadius={1.5} gap={2}>
@@ -30,7 +60,12 @@ export const AddProductRight = () => {
           Төрөл
         </Typography>
         <Stack fontSize={14} fontWeight={400} color={"secondary.dark"} gap={1}>
-          <Stack flexDirection={"row"} gap={3} alignItems={"center"}>
+          <Stack
+            flexDirection={"row"}
+            flexWrap="wrap"
+            gap={3}
+            alignItems={"center"}
+          >
             <Typography>Өнгө</Typography>
             {productColor.map((item, index) => (
               <Stack
@@ -42,6 +77,15 @@ export const AddProductRight = () => {
               ></Stack>
             ))}
             <AddBtn />
+            {/* <MuiColorInput
+              format="hex"
+              value={undefined}
+              sx={{}}
+              onChange={(event) => {
+                setProductColor([...productColor, event.toString()]);
+              }}
+            /> */}
+            <input style={{ backgroundColor: "#fff" }} type="color"></input>
           </Stack>
           <Stack flexDirection={"row"} gap={3} alignItems={"center"}>
             <Typography>Хэмжээ</Typography>
@@ -83,6 +127,10 @@ export const AddProductRight = () => {
             type="text"
             placeholder="Таг нэмэх..."
             labelWeight={600}
+            name="productTag"
+            value={productTag}
+            onBlur={handleBlur}
+            onChange={handleChange}
           />
         </Stack>
       </Stack>

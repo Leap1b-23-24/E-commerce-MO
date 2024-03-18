@@ -8,6 +8,7 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { DataProvider } from "@/Components/Providers/DataProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+              <DataProvider>{children}</DataProvider>
+            </AuthProvider>
             <ToastContainer />
           </ThemeProvider>
         </AppRouterCacheProvider>

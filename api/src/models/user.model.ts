@@ -8,6 +8,7 @@ const userSchema = new Schema({
   experience: String,
   merchType: String,
   password: String,
+  role: { type: String, required: false },
   createdAt: Date,
   updatedAt: Date,
 });
