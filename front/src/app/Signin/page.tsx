@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useAuth } from "@/Components/Providers/AuthProvider";
 import { SignIn } from "@/Components/Authentication/SignIn";
+import { useRouter } from "next/navigation";
 
 const validationSchema = yup.object({
   email: yup
@@ -21,7 +22,8 @@ const validationSchema = yup.object({
 });
 
 export default function Signin() {
-  const { signIn } = useAuth();
+  const { signIn, user } = useAuth();
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       email: "",

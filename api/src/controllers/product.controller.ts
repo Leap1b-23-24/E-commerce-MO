@@ -62,9 +62,7 @@ export const getProducts: RequestHandler = async (req, res) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      return res.status(401).json({
-        message: "Бүртгэлгүй хэрэглэгч байна. Та бүртгүүлээд дахин оролдоно уу",
-      });
+      return res.status(401).json("Unauthorized");
     }
     const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
 

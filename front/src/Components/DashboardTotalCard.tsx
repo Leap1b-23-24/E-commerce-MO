@@ -1,16 +1,43 @@
-import { AttachMoney } from "@mui/icons-material";
-
-export const DashboardTotalCard = () => {
+"use client";
+import { AttachMoney, ContentPaste, PersonOutline } from "@mui/icons-material";
+import { Stack, Typography } from "@mui/material";
+import { useData } from "./Providers/DataProvider";
+type DashboardTotalCardProps = {
+  text: string;
+  incomeCount: number;
+  orderCount: number;
+  userCount: number;
+};
+export const DashboardTotalCard = (props: DashboardTotalCardProps) => {
+  const { text, incomeCount, orderCount, userCount } = props;
+  const { numberFormatter } = useData();
   return (
-    <div className="w-full bg-white rounded-xl px-6 py-4 flex flex-col gap-3 border">
-      <div className="flex flex-row gap-[8px]">
-        <AttachMoney />
-        <p className="text-[#121316] text-[16px] font-semibold"> Орлого</p>
-      </div>
+    <Stack
+      width={1}
+      bgcolor={"common.white"}
+      borderRadius={2}
+      px={3}
+      py={2}
+      gap={1.5}
+    >
+      <Stack flexDirection={"row"} gap={1}>
+        {text == "Орлого" && <AttachMoney />}
+        {text == "Захиалга" && <ContentPaste />}
+        {text == "Хэрэглэгч" && <PersonOutline />}
+        <Typography color={"secondary.dark"} fontSize={16} fontWeight={600}>
+          {text}
+        </Typography>
+      </Stack>
 
-      <p className="text-[#121316] text-[32px] font-bold ">235,000₮</p>
+      <Typography color={"secondary.dark"} fontSize={32} fontWeight={700}>
+        {text == "Орлого" && numberFormatter.format(incomeCount)}
+        {text == "Захиалга" && numberFormatter.format(orderCount)}
+        {text == "Хэрэглэгч" && numberFormatter.format(userCount)}
+      </Typography>
 
-      <p className="text-[#5E6166] text-[14px]">Өнөөдөр</p>
-    </div>
+      <Typography fontSize={14} fontWeight={400} color={"#5E6166"}>
+        Өнөөдөр
+      </Typography>
+    </Stack>
   );
 };

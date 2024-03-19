@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Stack } from "@mui/material";
 import { useData } from "./Providers/DataProvider";
 
@@ -40,11 +40,13 @@ const columns: GridColDef[] = [
 
 export const ProducListTable = () => {
   const { products } = useData();
-  console.log(products);
+
+  const id = products.filter((item) => item._id);
+  console.log(id);
   return (
     <Stack mt={2} overflow={"scroll"}>
       <DataGrid
-        getRowId={() => products[0]?._id}
+        getRowId={() => products[1]?._id}
         rows={products}
         columns={columns}
         initialState={{

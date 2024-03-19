@@ -48,12 +48,18 @@ type DataContextType = {
   products: ProductType[];
   setProducts: Dispatch<SetStateAction<ProductType[]>>;
   getProducts: () => void;
+  numberFormatter: Intl.NumberFormat;
 };
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
   const [products, setProducts] = useState<ProductType[]>([]);
   const { isLogged, refresh, setRefresh } = useAuth();
+  const numberFormatter = new Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
 
   //Add product function
   const addProduct = async (
@@ -116,12 +122,6 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         hideProgressBar: true,
       });
     } catch (error) {
-      if (error instanceof AxiosError) {
-        toast.error(error.response?.data.message ?? error.message, {
-          position: "top-center",
-          hideProgressBar: true,
-        });
-      }
       console.log(error), "FFF";
     }
   };
@@ -136,6 +136,7 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         products,
         setProducts,
         getProducts,
+        numberFormatter,
       }}
     >
       {children}
