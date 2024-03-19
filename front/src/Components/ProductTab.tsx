@@ -10,8 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import { IconNameDropdown } from "./IconNameDropdown";
-import { CustomInput } from "./Authentication/CustomInput";
 import { Dispatch, SetStateAction } from "react";
+import { ProducListTable } from "./ProductListTable";
 
 type ProductTabProps = {
   setAdd: Dispatch<SetStateAction<boolean>>;
@@ -88,6 +88,7 @@ export const ProductTab = (props: ProductTabProps) => {
           }}
         />
       </Stack>
+      <ProducListTable />
     </Stack>
   );
 };

@@ -20,43 +20,20 @@ export const AddProducts = (props: AddProductsProps) => {
   const { setAdd } = props;
   const { addProduct } = useData();
 
-  const [imageUrl, setImageUrl] = useState(["1", "2", "3", "4"]);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [productColor, setProductColor] = useState<[]>([]);
+  const [imageUrl, setImageUrl] = useState<string[]>([]);
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return;
-    setSelectedFile(event.target.files[0]);
-  };
+  const [productColor, setProductColor] = useState<string[]>([]);
+  const [productSize, setProductSize] = useState<string[]>(["XS", "M"]);
+  const [tag, setTag] = useState<string[]>([]);
 
-  const handleImageUpload = async () => {
-    if (selectedFile) {
-      try {
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/drik9j46w/upload?upload_preset=wco4x3yn",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        const data = await response.json();
-        setImageUrl(data.secure_url);
-        toast.success("Image uploaded");
-      } catch (error) {
-        toast.error("Image upload error:");
-      }
-    }
-  };
   const formik = useFormik({
     initialValues: {
       productName: "",
       productAdditional: "",
       productCode: "",
 
-      productPrice: undefined,
-      productStocks: undefined,
+      productPrice: 0,
+      productStocks: 0,
       productCategory: "",
       productSubCategory: "",
       productSize: [],
@@ -124,6 +101,10 @@ export const AddProducts = (props: AddProductsProps) => {
           productStocks={formik.values.productStocks}
           handleChange={formik.handleChange}
           handleBlur={formik.handleBlur}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+          tag={tag}
+          setTag={setTag}
         />
         <AddProductRight
           productCategory={formik.values.productCategory}
@@ -131,8 +112,12 @@ export const AddProducts = (props: AddProductsProps) => {
           productTag={formik.values.productTag}
           handleChange={formik.handleChange}
           handleBlur={formik.handleBlur}
-          setProductColor={setProductColor}
           productColor={productColor}
+          setProductColor={setProductColor}
+          productSize={productSize}
+          setProductSize={setProductSize}
+          tag={tag}
+          setTag={setTag}
         />
       </Stack>
       <Stack

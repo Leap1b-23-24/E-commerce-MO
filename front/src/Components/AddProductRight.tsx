@@ -1,7 +1,13 @@
 "use client";
-import { Button, Grid, Stack, Typography } from "@mui/material";
+import { Button, Chip, Grid, Stack, Typography } from "@mui/material";
 import { CustomInput } from "./Authentication/CustomInput";
-import { Add, ImageOutlined } from "@mui/icons-material";
+import {
+  Add,
+  Close,
+  DeleteOutline,
+  HighlightOff,
+  ImageOutlined,
+} from "@mui/icons-material";
 import { ChangeEventHandler, Dispatch, SetStateAction, useState } from "react";
 import { AddBtn } from "./AddBtn";
 import { MuiColorInput } from "mui-color-input";
@@ -15,6 +21,10 @@ type AddProductRightProps = {
   handleBlur?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
   productColor: string[];
   setProductColor: Dispatch<SetStateAction<string[]>>;
+  productSize: string[];
+  setProductSize: Dispatch<SetStateAction<string[]>>;
+  tag: string[];
+  setTag: Dispatch<SetStateAction<string[]>>;
 };
 export const AddProductRight = (props: AddProductRightProps) => {
   const {
@@ -23,12 +33,15 @@ export const AddProductRight = (props: AddProductRightProps) => {
     productTag,
     handleBlur,
     handleChange,
-    productColor,
     setProductColor,
+    productColor,
+    setProductSize,
+    productSize,
+    tag,
+    setTag,
   } = props;
-  const [imageUrl, setImageUrl] = useState(["1", "2", "3", "4"]);
 
-  const productSize = ["Xs", "S", "M"];
+  const [imageUrl, setImageUrl] = useState(["1", "2", "3", "4"]);
   const [value, setValue] = useState("#000000");
 
   return (
@@ -67,25 +80,57 @@ export const AddProductRight = (props: AddProductRightProps) => {
             alignItems={"center"}
           >
             <Typography>Өнгө</Typography>
-            {productColor.map((item, index) => (
+            {productColor.map((item: any, index) => (
               <Stack
                 key={index}
                 bgcolor={item}
                 p={2}
                 borderRadius={"50%"}
-                sx={{ aspectRatio: 1 / 1 }}
-              ></Stack>
+                position={"relative"}
+                sx={{
+                  aspectRatio: 1 / 1,
+                }}
+              >
+                <Typography
+                  onClick={() => {
+                    const newProductColor = productColor.filter(
+                      (element) => element != item
+                    );
+                    setProductColor(newProductColor);
+                  }}
+                  position={"absolute"}
+                  width={1}
+                  height={1}
+                  top={"0%"}
+                  right={"0%"}
+                  color={"common.white"}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  borderRadius={"50%"}
+                  sx={{
+                    cursor: "pointer",
+                    opacity: "0",
+                    "&:hover": {
+                      opacity: "1",
+                      background: "#D6D8DB50",
+                    },
+                  }}
+                  fontSize={"20px"}
+                >
+                  <HighlightOff fontSize="inherit" />
+                </Typography>
+              </Stack>
             ))}
             <AddBtn />
-            {/* <MuiColorInput
+            <MuiColorInput
               format="hex"
-              value={undefined}
-              sx={{}}
+              value={"#fff"}
               onChange={(event) => {
-                setProductColor([...productColor, event.toString()]);
+                setProductColor([...productColor, event]);
+                setTag([...tag, event]);
               }}
-            /> */}
-            <input style={{ backgroundColor: "#fff" }} type="color"></input>
+            />
           </Stack>
           <Stack flexDirection={"row"} gap={3} alignItems={"center"}>
             <Typography>Хэмжээ</Typography>
@@ -98,7 +143,36 @@ export const AddProductRight = (props: AddProductRightProps) => {
                 borderRadius={"50%"}
                 alignItems={"center"}
                 justifyContent={"center"}
+                position={"relative"}
               >
+                <Typography
+                  onClick={() => {
+                    const newProductSize = productSize.filter(
+                      (element) => element != item
+                    );
+                    setProductSize(newProductSize);
+                  }}
+                  position={"absolute"}
+                  color={"secondary.light"}
+                  display={"flex"}
+                  width={1}
+                  height={1}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  borderRadius={"50%"}
+                  bgcolor={"secondary.light"}
+                  sx={{
+                    cursor: "pointer",
+                    opacity: "0",
+                    "&:hover": {
+                      opacity: "1",
+                      background: "#D6D8DB",
+                    },
+                  }}
+                  fontSize={"20px"}
+                >
+                  <HighlightOff fontSize="inherit" />
+                </Typography>
                 <Typography>{item}</Typography>
               </Stack>
             ))}
@@ -121,8 +195,8 @@ export const AddProductRight = (props: AddProductRightProps) => {
         gap={2}
         width={1}
       >
-        <Stack width={1}>
-          <CustomInput
+        <Stack width={1} gap={1}>
+          {/* <CustomInput
             label="Таг"
             type="text"
             placeholder="Таг нэмэх..."
@@ -131,7 +205,32 @@ export const AddProductRight = (props: AddProductRightProps) => {
             value={productTag}
             onBlur={handleBlur}
             onChange={handleChange}
-          />
+          > */}
+          <Typography fontSize={18} fontWeight={600} color={"secondary.dark"}>
+            Таг
+          </Typography>
+          <Stack
+            direction="row"
+            spacing={1}
+            p={2}
+            gap={0.5}
+            border={1}
+            borderRadius={1}
+            bgcolor={"#F7F7F8"}
+            borderColor={"#D6D8DB"}
+            flexWrap={"wrap"}
+          >
+            {tag.map((item, index) => (
+              <Chip
+                label={item}
+                onDelete={() => {
+                  const newTag = tag.filter((element) => element != item);
+                  setTag(newTag);
+                }}
+              />
+            ))}
+          </Stack>
+          {/* </CustomInput> */}
         </Stack>
       </Stack>
     </Stack>

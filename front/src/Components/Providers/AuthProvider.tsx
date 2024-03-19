@@ -27,6 +27,8 @@ type userType = {
 type AuthContextType = {
   isLogged: boolean;
   setIsLogged: Dispatch<SetStateAction<boolean>>;
+  refresh: number;
+  setRefresh: Dispatch<SetStateAction<number>>;
   signUp: (
     userName: string,
     email: string,
@@ -61,6 +63,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   });
   const [isLogged, setIsLogged] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [refresh, setRefresh] = useState(0);
   //Sign-Up function
   const signUp = async (
     userName: string,
@@ -183,6 +186,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       value={{
         isLogged,
         setIsLogged,
+        refresh,
+        setRefresh,
         signUp,
         signIn,
         user,

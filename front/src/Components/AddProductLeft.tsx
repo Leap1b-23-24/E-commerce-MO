@@ -3,16 +3,29 @@ import { Button, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { CustomInput } from "./Authentication/CustomInput";
 import { Add, ImageOutlined } from "@mui/icons-material";
-import { ChangeEventHandler, useState } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+import Image from "next/image";
+import { toast } from "react-toastify";
 
 type AddProductLeftProps = {
   productName: string;
   productCode: string;
   productAdditional: string;
-  productPrice?: undefined;
-  productStocks?: undefined;
+  productPrice?: number;
+  productStocks?: number;
   handleChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
   handleBlur?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  imageUrl: string[];
+  setImageUrl: Dispatch<SetStateAction<string[]>>;
+  tag: string[];
+  setTag: Dispatch<SetStateAction<string[]>>;
 };
 
 const VisuallyHiddenInput = styled("input")({
@@ -27,7 +40,6 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 export const AddProductLeft = (props: AddProductLeftProps) => {
-  const [imageUrl, setImageUrl] = useState([""]);
   const {
     productName,
     productCode,
@@ -36,7 +48,40 @@ export const AddProductLeft = (props: AddProductLeftProps) => {
     productStocks,
     handleBlur,
     handleChange,
+    imageUrl,
+    setImageUrl,
+    tag,
+    setTag,
   } = props;
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleImageUpload = async () => {
+    if (selectedFile) {
+      try {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/drik9j46w/upload?upload_preset=wco4x3yn",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+        setImageUrl([...imageUrl, data.secure_url]);
+      } catch (error) {
+        toast.error("Image upload error:");
+      }
+    }
+  };
+  const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    setSelectedFile(event.target.files[0]);
+  };
+  useEffect(() => {
+    handleImageUpload();
+  }, [selectedFile]);
+
   return (
     <Stack gap={3} width={1}>
       <Stack bgcolor={"common.white"} p={3} borderRadius={1.5} gap={2}>
@@ -76,23 +121,31 @@ export const AddProductLeft = (props: AddProductLeftProps) => {
           Бүтээгдэхүүний зураг
         </Typography>
         <Stack flexDirection={"row"} gap={1} flexWrap={"wrap"}>
-          {imageUrl.map((item, index) => (
-            <Stack
-              border={1}
-              borderRadius={2}
-              borderColor={"#D6D8DB"}
-              width={1 / 4}
-              style={{
-                borderStyle: "dashed",
-                aspectRatio: 1 / 1,
-              }}
-              fontSize={"medium"}
-              alignItems="center"
-              justifyContent="center"
-            >
-              <ImageOutlined fontSize="inherit" />
-            </Stack>
-          ))}
+          {Boolean(imageUrl.length) &&
+            imageUrl.map((item, index) => (
+              <Stack
+                border={1}
+                borderRadius={2}
+                borderColor={"#D6D8DB"}
+                width={1 / 4}
+                position={"relative"}
+                style={{
+                  borderStyle: "dashed",
+                  aspectRatio: 1 / 1,
+                }}
+                fontSize={"medium"}
+                alignItems="center"
+                justifyContent="center"
+                overflow={"hidden"}
+              >
+                <Image
+                  src={item}
+                  style={{ objectFit: "cover" }}
+                  alt="clothes"
+                  fill
+                />
+              </Stack>
+            ))}
           <Stack
             border={1}
             borderRadius={2}
@@ -109,6 +162,7 @@ export const AddProductLeft = (props: AddProductLeftProps) => {
             <IconButton component="label" sx={{ backgroundColor: "#D6D8DB" }}>
               <Add />
               <VisuallyHiddenInput
+                onChange={handleImageChange}
                 sx={{ backgroundColor: "red" }}
                 type="file"
               />

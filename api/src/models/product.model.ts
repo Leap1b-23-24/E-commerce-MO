@@ -1,6 +1,7 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const productSchema = new Schema({
+  merchId: mongoose.Schema.Types.ObjectId,
   productName: String,
   productAdditional: String,
   productCode: String,
@@ -12,6 +13,7 @@ const productSchema = new Schema({
   productColor: Object,
   productSize: Object,
   productTag: Object,
+  productSoldQty: { type: Number, required: false },
   updatedAt: Date,
   createdAt: Date,
 });
