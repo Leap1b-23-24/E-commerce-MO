@@ -5,14 +5,24 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { toast } from "react-toastify";
 import { AddProductLeft } from "./AddProductLeft";
 import { AddProductRight } from "./AddProductRight";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useData } from "./Providers/DataProvider";
+
+const validationSchema = yup.object({
+  // userName: yup.string().required("Хэрэглэгчийн нэр оруулна уу!"),
+});
 
 type AddProductsProps = {
   setAdd: Dispatch<SetStateAction<boolean>>;
 };
 export const AddProducts = (props: AddProductsProps) => {
   const { setAdd } = props;
+  const { addProduct } = useData();
+
   const [imageUrl, setImageUrl] = useState(["1", "2", "3", "4"]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [productColor, setProductColor] = useState<[]>([]);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -39,6 +49,36 @@ export const AddProducts = (props: AddProductsProps) => {
       }
     }
   };
+  const formik = useFormik({
+    initialValues: {
+      productName: "",
+      productAdditional: "",
+      productCode: "",
+
+      productPrice: undefined,
+      productStocks: undefined,
+      productCategory: "",
+      productSubCategory: "",
+      productSize: [],
+      productTag: [],
+    },
+    // validationSchema: validationSchema,
+    onSubmit: (values) => {
+      addProduct(
+        values.productName,
+        values.productAdditional,
+        values.productCode,
+        imageUrl,
+        values.productPrice,
+        values.productStocks,
+        values.productCategory,
+        values.productSubCategory,
+        productColor,
+        values.productSize,
+        values.productTag
+      );
+    },
+  });
   return (
     <Stack bgcolor={"#F7F7F8"} width={1} height={"100%"}>
       <Stack
@@ -76,8 +116,24 @@ export const AddProducts = (props: AddProductsProps) => {
         gap={3}
         padding={"34px 24px 21px 32px"}
       >
-        <AddProductLeft />
-        <AddProductRight />
+        <AddProductLeft
+          productName={formik.values.productName}
+          productCode={formik.values.productCode}
+          productAdditional={formik.values.productAdditional}
+          productPrice={formik.values.productPrice}
+          productStocks={formik.values.productStocks}
+          handleChange={formik.handleChange}
+          handleBlur={formik.handleBlur}
+        />
+        <AddProductRight
+          productCategory={formik.values.productCategory}
+          productSubCategory={formik.values.productSubCategory}
+          productTag={formik.values.productTag}
+          handleChange={formik.handleChange}
+          handleBlur={formik.handleBlur}
+          setProductColor={setProductColor}
+          productColor={productColor}
+        />
       </Stack>
       <Stack
         flexDirection={"row"}
@@ -90,7 +146,13 @@ export const AddProducts = (props: AddProductsProps) => {
         <Button variant="outlined" color="secondary">
           <Typography color={"secondary.dark"}>Ноорог</Typography>
         </Button>
-        <Button variant="contained" color="secondary">
+        <Button
+          onClick={() => {
+            formik.handleSubmit();
+          }}
+          variant="contained"
+          color="secondary"
+        >
           <Typography>Нийтлэх</Typography>
         </Button>
       </Stack>

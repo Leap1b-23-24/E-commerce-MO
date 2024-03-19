@@ -1,8 +1,12 @@
+"use client";
+
 import { NotificationsOutlined, PersonOutline } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
+import { useAuth } from "./Providers/AuthProvider";
 
 export const MerchantDashboardHeader = () => {
+  const { user } = useAuth();
   return (
     <Stack width={1} bgcolor={"secondary.main"}>
       <Stack
@@ -28,7 +32,7 @@ export const MerchantDashboardHeader = () => {
               fontWeight={400}
               color={"common.white"}
             >
-              Username
+              {user.userName.length ? user?.userName : "Username"}
             </Typography>
           </Stack>
         </Stack>
