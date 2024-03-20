@@ -1,5 +1,5 @@
 "use client";
-import { ArrowBackIos } from "@mui/icons-material";
+import { ArrowBackIos, EditRoadSharp } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { toast } from "react-toastify";
@@ -14,30 +14,30 @@ const validationSchema = yup.object({
 });
 
 type AddProductsProps = {
-  setAdd: Dispatch<SetStateAction<boolean>>;
+  editId: string;
 };
 export const AddProducts = (props: AddProductsProps) => {
-  const { setAdd } = props;
-  const { addProduct } = useData();
+  const { editId } = props;
+  const { addProduct, setAdd, add, products } = useData();
 
   const [imageUrl, setImageUrl] = useState<string[]>([]);
 
   const [productColor, setProductColor] = useState<string[]>([]);
   const [productSize, setProductSize] = useState<string[]>(["XS", "M"]);
   const [tag, setTag] = useState<string[]>([]);
+  const editProduct = products.filter((product) => product._id == editId)?.[0];
 
   const formik = useFormik({
     initialValues: {
-      productName: "",
-      productAdditional: "",
-      productCode: "",
-
-      productPrice: 0,
-      productStocks: 0,
-      productCategory: "",
-      productSubCategory: "",
-      productSize: [],
-      productTag: [],
+      productName: editProduct ? editProduct.productName : "",
+      productAdditional: editProduct ? editProduct.productAdditional : "",
+      productCode: editProduct ? editProduct.productCode : "",
+      productPrice: editProduct ? editProduct.productPrice : 0,
+      productStocks: editProduct ? editProduct.productStocks : 0,
+      productCategory: editProduct ? editProduct.productCategory : "",
+      productSubCategory: editProduct ? editProduct.productSubCategory : "",
+      productSize: editProduct ? editProduct.productSize : [],
+      productTag: editProduct ? editProduct.productTag : [],
     },
     // validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -45,19 +45,20 @@ export const AddProducts = (props: AddProductsProps) => {
         values.productName,
         values.productAdditional,
         values.productCode,
-        imageUrl,
+        imageUrl.length ? imageUrl : editProduct.productImage,
         values.productPrice,
         values.productStocks,
         values.productCategory,
         values.productSubCategory,
         productColor,
         values.productSize,
-        values.productTag
+        values.productTag,
+        editId
       );
     },
   });
   return (
-    <Stack bgcolor={"#F7F7F8"} width={1} height={"100%"}>
+    <Stack width={1} height={"100%"}>
       <Stack
         flexDirection={"row"}
         alignItems={"center"}
@@ -83,7 +84,7 @@ export const AddProducts = (props: AddProductsProps) => {
         >
           <ArrowBackIos fontSize="inherit" />
           <Typography fontSize={16} ml={"18px"} fontWeight={400}>
-            Бүтээгдэхүүн нэмэх
+            {!editProduct ? "Бүтээгдэхүүн нэмэх" : "Бүтээгдэхүүн шинэчлэх"}
           </Typography>
         </Stack>
       </Stack>
@@ -105,6 +106,7 @@ export const AddProducts = (props: AddProductsProps) => {
           setImageUrl={setImageUrl}
           tag={tag}
           setTag={setTag}
+          editProduct={editProduct}
         />
         <AddProductRight
           productCategory={formik.values.productCategory}
@@ -129,9 +131,15 @@ export const AddProducts = (props: AddProductsProps) => {
         justifyContent={"end"}
       >
         <Button variant="outlined" color="secondary">
-          <Typography color={"secondary.dark"}>Ноорог</Typography>
+          <Typography onClick={() => alert(editId)} color={"secondary.dark"}>
+            Ноорог
+          </Typography>
         </Button>
         <Button
+          disabled={
+            !Boolean(imageUrl.length) ||
+            Boolean(editProduct.productImage.length)
+          }
           onClick={() => {
             formik.handleSubmit();
           }}

@@ -10,11 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 import { IconNameDropdown } from "./IconNameDropdown";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ProducListTable } from "./ProductListTable";
+import { useData } from "./Providers/DataProvider";
 
 type ProductTabProps = {
-  setAdd: Dispatch<SetStateAction<boolean>>;
+  setEditId: Dispatch<SetStateAction<string>>;
 };
 const dropDown = [
   { icon: "category", name: "Ангилал" },
@@ -23,7 +24,9 @@ const dropDown = [
 ];
 
 export const ProductTab = (props: ProductTabProps) => {
-  const { setAdd } = props;
+  const { setEditId } = props;
+  const [searchValue, setSearchValue] = useState("");
+  const { setAdd } = useData();
   return (
     <Stack width={1} height={"100vh"} p={3}>
       <Button
@@ -37,7 +40,14 @@ export const ProductTab = (props: ProductTabProps) => {
           padding: "12px 16px",
         }}
       >
-        <Stack flexDirection={"row"} px={"29px"} gap={0.5}>
+        <Stack
+          onClick={() => {
+            setEditId("");
+          }}
+          flexDirection={"row"}
+          px={"29px"}
+          gap={0.5}
+        >
           <Add />
           <Typography fontSize={16} fontWeight={600}>
             Бүтээгдэхүүн нэмэх
@@ -61,6 +71,7 @@ export const ProductTab = (props: ProductTabProps) => {
           placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
           type="search"
           color="secondary"
+          onChange={(event) => setSearchValue(event.target.value)}
           inputProps={{
             style: {
               padding: "8px",
@@ -88,7 +99,7 @@ export const ProductTab = (props: ProductTabProps) => {
           }}
         />
       </Stack>
-      <ProducListTable />
+      <ProducListTable searchValue={searchValue} setEditId={setEditId} />
     </Stack>
   );
 };

@@ -194,6 +194,7 @@ export const AddProductRight = (props: AddProductRightProps) => {
         borderRadius={1.5}
         gap={2}
         width={1}
+        height={1}
       >
         <Stack width={1} gap={1}>
           {/* <CustomInput
@@ -219,6 +220,7 @@ export const AddProductRight = (props: AddProductRightProps) => {
             bgcolor={"#F7F7F8"}
             borderColor={"#D6D8DB"}
             flexWrap={"wrap"}
+            height={1}
           >
             {tag.map((item, index) => (
               <Chip

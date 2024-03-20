@@ -26,6 +26,7 @@ type ProductType = {
   productColor: string[];
   productSize: string[];
   productTag: string[];
+  productSoldQty: number;
   updatedAt: string;
   createdAt: string;
   __v: number;
@@ -43,17 +44,22 @@ type DataContextType = {
     productSubCategory: string,
     productColor: string[],
     productSize: string[],
-    productTag: string[]
+    productTag: string[],
+    editId: string
   ) => void;
   products: ProductType[];
   setProducts: Dispatch<SetStateAction<ProductType[]>>;
   getProducts: () => void;
+  deleteProduct: (productId: string) => void;
   numberFormatter: Intl.NumberFormat;
+  add: boolean;
+  setAdd: Dispatch<SetStateAction<boolean>>;
 };
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [add, setAdd] = useState(false);
   const { isLogged, refresh, setRefresh } = useAuth();
   const numberFormatter = new Intl.NumberFormat("en-US", {
     style: "decimal",
@@ -73,7 +79,8 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     productSubCategory: string,
     productColor: string[],
     productSize: string[],
-    productTag: string[]
+    productTag: string[],
+    editId: string
   ) => {
     try {
       const { data } = await api.post(
@@ -90,6 +97,7 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
           productColor,
           productSize,
           productTag,
+          editId,
         },
         { headers: { Authorization: localStorage.getItem("token") } }
       );
@@ -126,6 +134,27 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const deleteProduct = async (productId: string) => {
+    try {
+      const { data } = await api.post(
+        "product/deleteProduct",
+        { productId },
+        {
+          headers: { Authorization: localStorage.getItem("token") },
+        }
+      );
+
+      setRefresh((prev) => prev + 1);
+
+      toast.success(data.message, {
+        position: "top-center",
+        hideProgressBar: true,
+      });
+    } catch (error) {
+      console.log(error), "FFF";
+    }
+  };
+
   useEffect(() => {
     getProducts();
   }, [isLogged, refresh]);
@@ -137,6 +166,9 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         setProducts,
         getProducts,
         numberFormatter,
+        deleteProduct,
+        add,
+        setAdd,
       }}
     >
       {children}

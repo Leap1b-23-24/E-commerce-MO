@@ -1,5 +1,6 @@
 import { Stack } from "@mui/material";
 import { DashboardTotalCard } from "./DashboardTotalCard";
+import { useData } from "./Providers/DataProvider";
 
 export const MerchantDashbaordMain = () => {
   const dashboardTotalItem = [

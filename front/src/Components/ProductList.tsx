@@ -3,12 +3,13 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Stack, Tab, Tabs } from "@mui/material";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { ProductTab } from "./ProductTab";
+import { useData } from "./Providers/DataProvider";
 type ProductListProps = {
-  setAdd: Dispatch<SetStateAction<boolean>>;
+  setEditId: Dispatch<SetStateAction<string>>;
 };
 export const ProductList = (props: ProductListProps) => {
   const [value, setValue] = useState("1");
-
+  const { setEditId } = props;
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -33,7 +34,7 @@ export const ProductList = (props: ProductListProps) => {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <ProductTab setAdd={props.setAdd} />
+          <ProductTab setEditId={setEditId} />
         </TabPanel>
         <TabPanel value="2">Ангилал</TabPanel>
       </TabContext>

@@ -1,5 +1,6 @@
 import { Stack } from "@mui/material";
 import { DashboardCardTitle } from "./DashboardCardTitle";
+import { TopSales } from "./TopSales";
 
 export const MerchantDashbaordTop = () => {
   return (
@@ -12,6 +13,7 @@ export const MerchantDashbaordTop = () => {
       width={0.5}
     >
       <DashboardCardTitle title="Шилдэг бүтээгдэхүүн" />
+      <TopSales />
     </Stack>
   );
 };

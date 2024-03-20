@@ -32,7 +32,14 @@ export const MerchantDashboardLeft = () => {
   const router = useRouter();
 
   return (
-    <Stack gap={2} pt={3} color={"secondary.main"} width={1} height={"100vh"}>
+    <Stack
+      gap={2}
+      pt={3}
+      color={"secondary.main"}
+      bgcolor={"common.white"}
+      width={1}
+      height={"100vh"}
+    >
       {merchantNavList.map((item, index) => (
         <Stack
           key={index}
