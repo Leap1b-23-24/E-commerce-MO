@@ -157,7 +157,7 @@ export const Ordertable = () => {
               <TableCell>{table.date}</TableCell>
               <TableCell>{table.time}</TableCell>
               <TableCell>{table.paid}</TableCell>
-              <TableCell sx={{ minWidth: "140px" }}>
+              <TableCell width={180} sx={{ width: "180px" }}>
                 <FormControl fullWidth>
                   <Select
                     sx={{

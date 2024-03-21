@@ -45,7 +45,7 @@ export const AddProducts = (props: AddProductsProps) => {
         values.productName,
         values.productAdditional,
         values.productCode,
-        imageUrl.length ? imageUrl : editProduct.productImage,
+        imageUrl,
         values.productPrice,
         values.productStocks,
         values.productCategory,
@@ -136,10 +136,6 @@ export const AddProducts = (props: AddProductsProps) => {
           </Typography>
         </Button>
         <Button
-          disabled={
-            !Boolean(imageUrl.length) ||
-            Boolean(editProduct.productImage.length)
-          }
           onClick={() => {
             formik.handleSubmit();
           }}

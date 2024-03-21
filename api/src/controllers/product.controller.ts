@@ -124,3 +124,12 @@ export const deleteProduct: RequestHandler = async (req, res) => {
     res.json(err);
   }
 };
+export const getAllProducts: RequestHandler = async (req, res) => {
+  try {
+    const allProducts = await ProductModel.find({});
+
+    return res.json(allProducts);
+  } catch (err) {
+    res.json(err);
+  }
+};

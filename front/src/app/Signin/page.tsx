@@ -40,7 +40,7 @@ export default function Signin() {
         <Image
           alt="logo"
           src="/pinecone.png"
-          priority={true}
+          priority={false}
           width={194}
           height={32}
         />

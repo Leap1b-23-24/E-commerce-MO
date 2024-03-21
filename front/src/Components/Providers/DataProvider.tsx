@@ -48,7 +48,9 @@ type DataContextType = {
     editId: string
   ) => void;
   products: ProductType[];
+  allProducts: ProductType[];
   setProducts: Dispatch<SetStateAction<ProductType[]>>;
+  setAllProducts: Dispatch<SetStateAction<ProductType[]>>;
   getProducts: () => void;
   deleteProduct: (productId: string) => void;
   numberFormatter: Intl.NumberFormat;
@@ -61,6 +63,7 @@ const DataContext = createContext<DataContextType>({} as DataContextType);
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [allProducts, setAllProducts] = useState<ProductType[]>([]);
   const [add, setAdd] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const { isLogged, refresh, setRefresh } = useAuth();
@@ -159,15 +162,28 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const getAllProducts = async () => {
+    try {
+      const { data } = await api.get("product/getAllProducts");
+      setAllProducts(data);
+    } catch (error) {
+      console.log(error), "FFF";
+    }
+  };
+
   useEffect(() => {
     getProducts();
+    getAllProducts();
   }, [isLogged, refresh]);
+
   return (
     <DataContext.Provider
       value={{
         addProduct,
         products,
         setProducts,
+        allProducts,
+        setAllProducts,
         getProducts,
         numberFormatter,
         deleteProduct,

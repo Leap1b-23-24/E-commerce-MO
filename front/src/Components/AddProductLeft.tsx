@@ -123,57 +123,30 @@ export const AddProductLeft = (props: AddProductLeftProps) => {
           Бүтээгдэхүүний зураг
         </Typography>
         <Stack flexDirection={"row"} gap={1} flexWrap={"wrap"}>
-          {imageUrl.length
-            ? imageUrl.map((item, index) => (
-                <Stack
-                  border={1}
-                  borderRadius={2}
-                  borderColor={"#D6D8DB"}
-                  width={1 / 4}
-                  position={"relative"}
-                  style={{
-                    borderStyle: "dashed",
-                    aspectRatio: 1 / 1,
-                  }}
-                  fontSize={"medium"}
-                  alignItems="center"
-                  justifyContent="center"
-                  overflow={"hidden"}
-                >
-                  <Image
-                    src={item}
-                    style={{ objectFit: "cover" }}
-                    alt="clothes"
-                    fill
-                  />
-                </Stack>
-              ))
-            : editProduct &&
-              editProduct.productImage.map((item, index) => (
-                <Stack
-                  border={1}
-                  borderRadius={2}
-                  borderColor={"#D6D8DB"}
-                  width={1 / 4}
-                  position={"relative"}
-                  style={{
-                    borderStyle: "dashed",
-                    aspectRatio: 1 / 1,
-                  }}
-                  fontSize={"medium"}
-                  alignItems="center"
-                  justifyContent="center"
-                  overflow={"hidden"}
-                >
-                  <Image
-                    src={item}
-                    style={{ objectFit: "cover" }}
-                    alt="clothes"
-                    fill
-                  />
-                </Stack>
-              ))}
-
+          {imageUrl.map((item, index) => (
+            <Stack
+              border={1}
+              borderRadius={2}
+              borderColor={"#D6D8DB"}
+              width={1 / 4}
+              position={"relative"}
+              style={{
+                borderStyle: "dashed",
+                aspectRatio: 1 / 1,
+              }}
+              fontSize={"medium"}
+              alignItems="center"
+              justifyContent="center"
+              overflow={"hidden"}
+            >
+              <Image
+                src={item}
+                style={{ objectFit: "cover" }}
+                alt="clothes"
+                fill
+              />
+            </Stack>
+          ))}
           <Stack
             border={1}
             borderRadius={2}

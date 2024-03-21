@@ -67,7 +67,13 @@ export default function Signup() {
       justifyContent={step < 0 ? "space-between" : "start"}
     >
       <Stack mt={"44px"} ml={"44px"}>
-        <Image alt="logo" src="/pinecone.png" width={194} height={32} />
+        <Image
+          alt="logo"
+          src="/pinecone.png"
+          priority={false}
+          width={194}
+          height={32}
+        />
       </Stack>
       {Boolean(step >= 0) && (
         <Stack width={1} alignItems={"center"}>
