@@ -2,6 +2,7 @@
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
 import React, { useState } from "react";
+import { Ordertable } from "./OrderTable";
 
 type OrderListProps = {};
 export const OrderList = (props: OrderListProps) => {
@@ -34,7 +35,9 @@ export const OrderList = (props: OrderListProps) => {
             <Tab label="Цуцлагдсан" value="6" />
           </TabList>
         </Box>
-        <TabPanel value="1">1</TabPanel>
+        <TabPanel value="1">
+          <Ordertable />
+        </TabPanel>
         <TabPanel value="2">Ангилал2</TabPanel>
         <TabPanel value="3">Ангилал3</TabPanel>
         <TabPanel value="4">Ангилал4</TabPanel>
