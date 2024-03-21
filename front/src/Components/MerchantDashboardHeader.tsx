@@ -4,9 +4,11 @@ import { NotificationsOutlined, PersonOutline } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useAuth } from "./Providers/AuthProvider";
+import { useRouter } from "next/navigation";
 
 export const MerchantDashboardHeader = () => {
   const { user } = useAuth();
+  const router = useRouter();
   return (
     <Stack width={1} bgcolor={"secondary.main"}>
       <Stack
@@ -15,7 +17,14 @@ export const MerchantDashboardHeader = () => {
         py={0.5}
         px={3}
       >
-        <Image src="/Plogo.svg" alt="pinecone logo" width={32} height={24} />
+        <Stack
+          onClick={() => {
+            router.push("/");
+          }}
+          sx={{ cursor: "pointer" }}
+        >
+          <Image src="/Plogo.svg" alt="pinecone logo" width={32} height={24} />
+        </Stack>
         <Stack
           flexDirection={"row"}
           gap={2}

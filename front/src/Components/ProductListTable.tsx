@@ -73,9 +73,9 @@ export const ProducListTable = (props: ProducListTableProps) => {
                   .toLowerCase()
                   .includes(searchValue.toLocaleLowerCase())
               )
-              .map((row) => (
+              .map((row, index) => (
                 <TableRow
-                  key={row.productName}
+                  key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell>

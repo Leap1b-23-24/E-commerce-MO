@@ -54,13 +54,17 @@ type DataContextType = {
   numberFormatter: Intl.NumberFormat;
   add: boolean;
   setAdd: Dispatch<SetStateAction<boolean>>;
+  searchValue: string;
+  setSearchValue: Dispatch<SetStateAction<string>>;
 };
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [add, setAdd] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const { isLogged, refresh, setRefresh } = useAuth();
+
   const numberFormatter = new Intl.NumberFormat("en-US", {
     style: "decimal",
     minimumFractionDigits: 0,
@@ -169,6 +173,8 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         deleteProduct,
         add,
         setAdd,
+        searchValue,
+        setSearchValue,
       }}
     >
       {children}
