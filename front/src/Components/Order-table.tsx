@@ -1,6 +1,12 @@
+"use client";
+
 import { ChevronRight } from "@mui/icons-material";
 import {
+  FormControl,
+  MenuItem,
   Paper,
+  Select,
+  SelectChangeEvent,
   Stack,
   Table,
   TableBody,
@@ -10,6 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "next/image";
+import React from "react";
 
 function createTable(
   title: string,
@@ -35,15 +42,22 @@ const tables = [
   ),
 ];
 export const Ordertable = () => {
+  const [menu, setMenu] = React.useState("");
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setMenu(event.target.value as string);
+  };
   return (
     <Stack>
-      <Table component={Paper}>
+      <Table sx={{ boxShadow: 1 }}>
         <TableHead>
-          <TableCell>
-            <Typography fontSize={20} fontWeight={700} color={"#121316"}>
-              Захиалга
-            </Typography>
-          </TableCell>
+          <TableRow>
+            <TableCell>
+              <Typography fontSize={20} fontWeight={700} color={"#121316"}>
+                Захиалга
+              </Typography>
+            </TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           <TableRow style={{ backgroundColor: "#F7F7F8" }}>
@@ -128,7 +142,9 @@ export const Ordertable = () => {
           {tables.map((table) => (
             <TableRow
               key={table.title}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              sx={{
+                "&:last-child td, &:last-child th": { border: 0 },
+              }}
             >
               <TableCell scope="row" component="th">
                 {table.title}
@@ -142,7 +158,22 @@ export const Ordertable = () => {
               <TableCell>{table.date}</TableCell>
               <TableCell>{table.time}</TableCell>
               <TableCell>{table.paid}</TableCell>
-              <TableCell>{table.status}</TableCell>
+              <TableCell sx={{ minWidth: "140px" }}>
+                <FormControl fullWidth>
+                  <Select
+                    sx={{
+                      borderRadius: "100px",
+                      height: "32px",
+                    }}
+                    value={menu}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={1}>Бэлтгэгдэж байна</MenuItem>
+                    <MenuItem value={2}>Хүргэлтэнд гарсан</MenuItem>
+                    <MenuItem value={3}>Хүргэгдсэн</MenuItem>
+                  </Select>
+                </FormControl>
+              </TableCell>
               <TableCell align="center">
                 <ChevronRight />
               </TableCell>
