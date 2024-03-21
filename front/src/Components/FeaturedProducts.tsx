@@ -2,11 +2,22 @@
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import { FeaturedProductCard } from "./FeaturedProductCard";
 import { useData } from "./Providers/DataProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const step = [1, 2, 3, 4];
+
 export const FeaturedProducts = () => {
   const { allProducts } = useData();
   const [selectedStep, setSelectedStep] = useState(1);
+  const [delay, setDelay] = useState(5000);
+
+  const timeoutId = setTimeout(() => {
+    if (selectedStep != 4) {
+      setSelectedStep(selectedStep + 1);
+    } else {
+      setSelectedStep(1);
+    }
+  }, delay);
+
   return (
     <Container maxWidth="lg">
       <Stack
@@ -14,25 +25,44 @@ export const FeaturedProducts = () => {
         mt={"129px"}
         mb={"71px"}
         alignItems={"center"}
-        // overflow={"hidden"}
+        overflow={"hidden"}
       >
         <Typography fontSize={42} fontWeight={800} color={"#1A0B5B"}>
           Онцлох бүтээгдэхүүн
         </Typography>
         <Stack
-          sx={{ width: "200%" }}
+          sx={{
+            width: "400%",
+            position: "relative",
+            left: `${150 - (selectedStep - 1) * 100}%`,
+            // transition: "1s linear",
+          }}
           flexDirection={"row"}
-          justifyContent={"space-around"}
+          justifyContent={"space-evenly"}
+          gap={1}
+          px={1}
         >
-          {allProducts.map((item, index) => (
-            <Stack key={index} width={"270px"} height={"361px"}>
-              <FeaturedProductCard
-                productName={item.productName}
-                productImage={item.productImage[0]}
-                productPrice={item.productPrice}
-              />
-            </Stack>
-          ))}
+          <Stack
+            sx={{ width: "100%" }}
+            position={"relative"}
+            flexDirection={"row"}
+            justifyContent={"space-evenly"}
+            gap={1}
+          >
+            {allProducts
+              .sort((a, b) => b.productSoldQty - a.productSoldQty)
+              .filter((i, top) => top < 16)
+              .map((item, index) => (
+                <Stack key={index} width={1 / 2}>
+                  <FeaturedProductCard
+                    productName={item.productName}
+                    productImage={item.productImage[0]}
+                    productPrice={item.productPrice}
+                    timeoutId={timeoutId}
+                  />
+                </Stack>
+              ))}
+          </Stack>
         </Stack>
         <Stack flexDirection={"row"} gap={"6px"}>
           {step.map((item, index) => (

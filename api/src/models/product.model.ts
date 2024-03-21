@@ -14,6 +14,7 @@ const productSchema = new Schema({
   productSize: Object,
   productTag: Object,
   productSoldQty: { type: Number, required: false },
+  salePercent: { type: Number, required: false },
   updatedAt: Date,
   createdAt: Date,
 });

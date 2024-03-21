@@ -3,7 +3,7 @@
 import { NotificationsOutlined, PersonOutline } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { useAuth } from "./Providers/AuthProvider";
+import { useAuth } from "../Providers/AuthProvider";
 import { useRouter } from "next/navigation";
 
 export const MerchantDashboardHeader = () => {

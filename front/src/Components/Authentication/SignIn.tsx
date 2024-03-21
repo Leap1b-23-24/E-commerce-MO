@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { CustomInput } from "./CustomInput";
-import { NextBtn } from "../NextBtn";
+import { NextBtn } from "../MerchantDashboard/NextBtn";
 import { Divider, Stack, Typography } from "@mui/material";
 import {
   ChangeEventHandler,

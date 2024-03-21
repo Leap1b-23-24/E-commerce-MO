@@ -1,8 +1,8 @@
 "use client";
-import { AddProducts } from "@/Components/AddProducts";
-import { MerchantDashboardHeader } from "@/Components/MerchantDashboardHeader";
-import { MerchantDashboardLeft } from "@/Components/MerchantDashboardLeft";
-import { ProductList } from "@/Components/ProductList";
+import { AddProducts } from "@/Components/MerchantDashboard/AddProducts";
+import { MerchantDashboardHeader } from "@/Components/MerchantDashboard/MerchantDashboardHeader";
+import { MerchantDashboardLeft } from "@/Components/MerchantDashboard/MerchantDashboardLeft";
+import { ProductList } from "@/Components/MerchantDashboard/ProductList";
 import { useData } from "@/Components/Providers/DataProvider";
 import { Box, Stack } from "@mui/material";
 import { useState } from "react";

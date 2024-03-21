@@ -12,7 +12,7 @@ import {
 import { IconNameDropdown } from "./IconNameDropdown";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ProducListTable } from "./ProductListTable";
-import { useData } from "./Providers/DataProvider";
+import { useData } from "../Providers/DataProvider";
 
 type ProductTabProps = {
   setEditId: Dispatch<SetStateAction<string>>;

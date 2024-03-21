@@ -1,7 +1,7 @@
 "use client";
 import { AttachMoney, ContentPaste, PersonOutline } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
-import { useData } from "./Providers/DataProvider";
+import { useData } from "../Providers/DataProvider";
 type DashboardTotalCardProps = {
   text: string;
   incomeCount: number;

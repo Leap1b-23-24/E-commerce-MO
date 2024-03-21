@@ -1,13 +1,7 @@
 "use client";
 import { Button, Chip, Grid, Stack, Typography } from "@mui/material";
-import { CustomInput } from "./Authentication/CustomInput";
-import {
-  Add,
-  Close,
-  DeleteOutline,
-  HighlightOff,
-  ImageOutlined,
-} from "@mui/icons-material";
+import { CustomInput } from "../Authentication/CustomInput";
+import { HighlightOff } from "@mui/icons-material";
 import { ChangeEventHandler, Dispatch, SetStateAction, useState } from "react";
 import { AddBtn } from "./AddBtn";
 import { MuiColorInput } from "mui-color-input";

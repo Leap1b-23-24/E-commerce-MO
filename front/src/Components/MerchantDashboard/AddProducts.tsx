@@ -7,7 +7,7 @@ import { AddProductLeft } from "./AddProductLeft";
 import { AddProductRight } from "./AddProductRight";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useData } from "./Providers/DataProvider";
+import { useData } from "../Providers/DataProvider";
 
 const validationSchema = yup.object({
   // userName: yup.string().required("Хэрэглэгчийн нэр оруулна уу!"),

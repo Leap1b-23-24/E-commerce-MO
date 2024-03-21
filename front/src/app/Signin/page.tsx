@@ -1,9 +1,9 @@
 "use client";
 import { SignUp } from "@/Components/Authentication/SignUp";
 import { Steps } from "@/Components/Authentication/Steps";
-import { MerchantName } from "@/Components/MerchantName";
+import { MerchantName } from "@/Components/MerchantDashboard/MerchantName";
 import { RegionInfo } from "@/Components/RegionInfo";
-import { MerchExp } from "@/Components/MerchExp";
+import { MerchExp } from "@/Components/MerchantDashboard/MerchExp";
 import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";

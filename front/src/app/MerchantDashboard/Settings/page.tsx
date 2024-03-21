@@ -1,6 +1,6 @@
 "use client";
-import { MerchantDashboardHeader } from "@/Components/MerchantDashboardHeader";
-import { MerchantDashboardLeft } from "@/Components/MerchantDashboardLeft";
+import { MerchantDashboardHeader } from "@/Components/MerchantDashboard/MerchantDashboardHeader";
+import { MerchantDashboardLeft } from "@/Components/MerchantDashboard/MerchantDashboardLeft";
 import { ShopProfile } from "@/Components/ShopProfile";
 import { Box, Stack } from "@mui/material";
 

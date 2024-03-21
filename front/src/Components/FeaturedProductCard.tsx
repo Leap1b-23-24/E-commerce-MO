@@ -1,5 +1,5 @@
 "use client";
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useData } from "./Providers/DataProvider";
 import {
@@ -7,21 +7,26 @@ import {
   ShoppingCartOutlined,
   ZoomIn,
 } from "@mui/icons-material";
+
 type FeaturedProductCardProps = {
   productImage: string;
   productName: string;
   productPrice: number;
+  timeoutId: any;
 };
 
 export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
-  const { productImage, productName, productPrice } = props;
+  const { productImage, productName, productPrice, timeoutId } = props;
   const { numberFormatter } = useData();
   return (
     <Stack
-      height={1}
+      onMouseOver={() => {}}
       width={1}
-      boxShadow={4}
+      boxShadow={2}
+      overflow={"hidden"}
       sx={{
+        aspectRatio: 270 / 361,
+        transition: "0.2 linear",
         "&:hover .info": {
           backgroundColor: "#2F1AC4",
         },
@@ -34,17 +39,29 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
         "&:hover .productPrice": {
           color: "common.white",
         },
+        "&:hover .image": {
+          transform: "scale(1.05)",
+          transition: "0.2s ease",
+        },
+        ".image": {
+          transition: "0.5s ease",
+        },
+        ".info": {
+          transition: "0.5s ease",
+        },
       }}
     >
       <Stack
-        height={270}
+        width={1}
+        minHeight={1 / 2}
         sx={{ aspectRatio: 1 / 1 }}
         position={"relative"}
         zIndex={1}
       >
         <Image
+          className="image"
           alt="product image"
-          style={{ objectFit: "contain" }}
+          style={{ objectFit: "cover", aspectRatio: 1 / 1.2 }}
           fill
           sizes="small"
           src={productImage}
@@ -57,6 +74,7 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
           height={1}
           bgcolor={"#00000000"}
           justifyContent={"space-between"}
+          zIndex={1}
         >
           <Stack flexDirection={"row"} gap={2} p={"11px"}>
             <Stack

@@ -3,7 +3,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Stack, Tab, Tabs } from "@mui/material";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { ProductTab } from "./ProductTab";
-import { useData } from "./Providers/DataProvider";
+import { useData } from "../Providers/DataProvider";
 type ProductListProps = {
   setEditId: Dispatch<SetStateAction<string>>;
 };

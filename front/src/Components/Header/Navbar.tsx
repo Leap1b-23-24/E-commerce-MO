@@ -19,7 +19,14 @@ export const Navbar = () => {
       <Container maxWidth="lg">
         <Stack width={1} flexDirection={"row"} justifyContent={"space-between"}>
           <Stack flexDirection={"row"} alignItems={"center"} gap={"58px"}>
-            <Typography fontSize={34} fontWeight={700} color={"#0D0E43"}>
+            <Typography
+              onClick={() => {
+                router.push("/MerchantDashboard");
+              }}
+              fontSize={34}
+              fontWeight={700}
+              color={"#0D0E43"}
+            >
               Ecommerce
             </Typography>
             <Stack

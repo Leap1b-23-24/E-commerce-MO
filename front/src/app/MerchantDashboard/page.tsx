@@ -1,11 +1,11 @@
 "use client";
 import { LoadingPage } from "@/Components/LoadingPage";
-import { MerchantDashbaordMain } from "@/Components/MerchDashboardMain";
-import { MerchantDashbaordChart1 } from "@/Components/MerchantDashboardChart1";
-import { MerchantDashbaordChart2 } from "@/Components/MerchantDashboardChart2";
-import { MerchantDashboardHeader } from "@/Components/MerchantDashboardHeader";
-import { MerchantDashboardLeft } from "@/Components/MerchantDashboardLeft";
-import { MerchantDashbaordTop } from "@/Components/MerchantDashboardTop";
+import { MerchantDashbaordMain } from "@/Components/MerchantDashboard/MerchDashboardMain";
+import { MerchantDashbaordChart1 } from "@/Components/MerchantDashboard/MerchantDashboardChart1";
+import { MerchantDashbaordChart2 } from "@/Components/MerchantDashboard/MerchantDashboardChart2";
+import { MerchantDashboardHeader } from "@/Components/MerchantDashboard/MerchantDashboardHeader";
+import { MerchantDashboardLeft } from "@/Components/MerchantDashboard/MerchantDashboardLeft";
+import { MerchantDashbaordTop } from "@/Components/MerchantDashboard/MerchantDashboardTop";
 import { useAuth } from "@/Components/Providers/AuthProvider";
 import { Box, Stack } from "@mui/material";
 import { useRouter } from "next/navigation";

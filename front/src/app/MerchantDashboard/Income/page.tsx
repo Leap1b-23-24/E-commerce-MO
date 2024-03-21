@@ -1,7 +1,7 @@
-import { MerchantDashboardHeader } from "@/Components/MerchantDashboardHeader";
-import { MerchantDashboardIncome } from "@/Components/MerchantDashboardIncome";
-import { MerchantDashboardLeft } from "@/Components/MerchantDashboardLeft";
-import { OrderList } from "@/Components/OrderList";
+import { MerchantDashboardHeader } from "@/Components/MerchantDashboard/MerchantDashboardHeader";
+import { MerchantDashboardIncome } from "@/Components/MerchantDashboard/MerchantDashboardIncome";
+import { MerchantDashboardLeft } from "@/Components/MerchantDashboard/MerchantDashboardLeft";
+import { OrderList } from "@/Components/MerchantDashboard/OrderList";
 import { Box, Stack } from "@mui/material";
 
 export default function Income() {

@@ -5,7 +5,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { CustomInput } from "./Authentication/CustomInput";
+import { CustomInput } from "../Authentication/CustomInput";
 import { LeftButton } from "./Leftbutton";
 import { NextBtn } from "./NextBtn";
 import {

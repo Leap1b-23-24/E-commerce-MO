@@ -1,7 +1,7 @@
 import { MenuItem, Stack, Typography } from "@mui/material";
 import { CustomInput } from "./Authentication/CustomInput";
-import { LeftButton } from "./Leftbutton";
-import { NextBtn } from "./NextBtn";
+import { LeftButton } from "./MerchantDashboard/Leftbutton";
+import { NextBtn } from "./MerchantDashboard/NextBtn";
 import { ChangeEventHandler, Dispatch, SetStateAction } from "react";
 import { PlaceOutlined } from "@mui/icons-material";
 type RegionInfoProps = {

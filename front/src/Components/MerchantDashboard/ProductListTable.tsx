@@ -12,7 +12,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useData } from "./Providers/DataProvider";
+import { useData } from "../Providers/DataProvider";
 import {
   CheckBox,
   Delete,
@@ -25,21 +25,35 @@ import { useRouter } from "next/navigation";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-type TopSalesProps = {};
+type ProducListTableProps = {
+  searchValue: string;
+  setEditId: Dispatch<SetStateAction<string>>;
+};
 
-export const TopSales = (props: TopSalesProps) => {
-  const { products, numberFormatter } = useData();
+export const ProducListTable = (props: ProducListTableProps) => {
+  const { products, deleteProduct, add, setAdd } = useData();
+  const { searchValue, setEditId } = props;
+  const router = useRouter();
 
-  const tableHeader = ["№", "Бүтээгдэхүүн", "Зарагдсан", "Үнэ"];
+  const tableHeader = [
+    "",
+    "Бүтээгдэхүүн",
+    "Ангилал",
+    "Үнэ",
+    "Үлдэгдэл",
+    "Зарагдсан",
+    "Нэмсэн огноо",
+    "",
+  ];
 
   return (
     <Stack mt={2} overflow={"scroll"}>
       <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               {tableHeader.map((item, index) => (
-                <TableCell align="center" key={index}>
+                <TableCell key={index}>
                   <Typography
                     fontSize={12}
                     fontWeight={600}
@@ -54,14 +68,19 @@ export const TopSales = (props: TopSalesProps) => {
 
           <TableBody>
             {products
-              .sort((a, b) => b.productSoldQty - a.productSoldQty)
-              .filter((product, index) => index < 20)
-              .map((row, number) => (
+              .filter((product) =>
+                product.productName
+                  .toLowerCase()
+                  .includes(searchValue.toLocaleLowerCase())
+              )
+              .map((row, index) => (
                 <TableRow
-                  key={row.productName}
+                  key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell align="center">{number + 1}</TableCell>
+                  <TableCell>
+                    <Checkbox color="default" />
+                  </TableCell>
                   <TableCell component="th" scope="row">
                     <Stack
                       flexDirection={"row"}
@@ -99,10 +118,28 @@ export const TopSales = (props: TopSalesProps) => {
                       </Stack>
                     </Stack>
                   </TableCell>
-                  <TableCell align="center">{row.productSoldQty}</TableCell>
-                  <TableCell align="right">
-                    {numberFormatter.format(row.productPrice)}
-                    {"₮"}
+                  <TableCell align="left">{row.productCategory}</TableCell>
+                  <TableCell align="left">{row.productPrice}</TableCell>
+                  <TableCell align="left">{row.productStocks}</TableCell>
+                  <TableCell align="left">{row.productSoldQty}</TableCell>
+                  <TableCell align="left">
+                    {row.createdAt.toString().slice(0, 10)}
+                  </TableCell>
+                  <TableCell align="left">
+                    <Stack flexDirection={"row"} gap={3} color={"#1C20243D"}>
+                      <DeleteOutline
+                        onClick={() => deleteProduct(row._id)}
+                        sx={{ cursor: "pointer" }}
+                      />
+                      <EditOutlined
+                        onClick={() => {
+                          setEditId(row._id);
+                          setAdd(true);
+                        }}
+                        sx={{ cursor: "pointer" }}
+                        color="inherit"
+                      />
+                    </Stack>
                   </TableCell>
                 </TableRow>
               ))}

@@ -1,7 +1,7 @@
 "use client";
 import { Button, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { CustomInput } from "./Authentication/CustomInput";
+import { CustomInput } from "../Authentication/CustomInput";
 import { Add, ImageOutlined } from "@mui/icons-material";
 import {
   ChangeEvent,
