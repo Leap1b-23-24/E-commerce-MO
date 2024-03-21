@@ -49,6 +49,9 @@ export const Navbar = () => {
           <TextField
             placeholder="Хайлт..."
             type="search"
+            onChange={(event) => {
+              setSearchValue(event.target.value);
+            }}
             inputProps={{
               style: {
                 padding: "14px 20px",
@@ -63,9 +66,6 @@ export const Navbar = () => {
               endAdornment: (
                 <InputAdornment position="end">
                   <Stack
-                    onClick={(event) => {
-                      console.log(event.target);
-                    }}
                     position={"absolute"}
                     right={0}
                     bgcolor={"primary.light"}

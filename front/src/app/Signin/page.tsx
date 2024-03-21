@@ -37,7 +37,13 @@ export default function Signin() {
   return (
     <Stack sx={{ height: "100vh" }} justifyContent={"space-between"}>
       <Stack mt={"44px"} ml={"44px"}>
-        <Image alt="logo" src="/pinecone.png" width={194} height={32} />
+        <Image
+          alt="logo"
+          src="/pinecone.png"
+          priority={true}
+          width={194}
+          height={32}
+        />
       </Stack>
 
       <Stack alignItems={"center"} width={1} mt={"58px"}>

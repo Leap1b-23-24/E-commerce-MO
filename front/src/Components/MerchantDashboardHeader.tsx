@@ -14,6 +14,7 @@ export const MerchantDashboardHeader = () => {
       <Stack
         flexDirection={"row"}
         justifyContent={"space-between"}
+        alignItems={"center"}
         py={0.5}
         px={3}
       >
@@ -23,7 +24,13 @@ export const MerchantDashboardHeader = () => {
           }}
           sx={{ cursor: "pointer" }}
         >
-          <Image src="/Plogo.svg" alt="pinecone logo" width={32} height={24} />
+          <Image
+            src="/Plogo.svg"
+            alt="pinecone logo"
+            sizes="small"
+            width={32}
+            height={24}
+          />
         </Stack>
         <Stack
           flexDirection={"row"}
