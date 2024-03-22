@@ -53,6 +53,7 @@ type DataContextType = {
   setAllProducts: Dispatch<SetStateAction<ProductType[]>>;
   getProducts: () => void;
   deleteProduct: (productId: string) => void;
+  updateReaction: (productId: string) => void;
   numberFormatter: Intl.NumberFormat;
   add: boolean;
   setAdd: Dispatch<SetStateAction<boolean>>;
@@ -171,6 +172,20 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const updateReaction = async (productId: string) => {
+    try {
+      const { data } = await api.post(
+        "product/updateReaction",
+        { productId },
+        {
+          headers: { Authorization: localStorage.getItem("token") },
+        }
+      );
+    } catch (error) {
+      console.log(error), "FFF";
+    }
+  };
+
   useEffect(() => {
     getProducts();
     getAllProducts();
@@ -187,6 +202,7 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         getProducts,
         numberFormatter,
         deleteProduct,
+        updateReaction,
         add,
         setAdd,
         searchValue,

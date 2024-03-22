@@ -3,24 +3,34 @@ import { Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useData } from "./Providers/DataProvider";
 import {
+  Favorite,
   FavoriteBorder,
   ShoppingCartOutlined,
   ZoomIn,
 } from "@mui/icons-material";
+import { useState } from "react";
 
 type FeaturedProductCardProps = {
   productImage: string;
   productName: string;
   productPrice: number;
-  timeoutId: any;
+  productId: string;
+  setPaused: (value: boolean) => void;
 };
 
 export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
-  const { productImage, productName, productPrice, timeoutId } = props;
-  const { numberFormatter } = useData();
+  const { productImage, productName, productPrice, setPaused, productId } =
+    props;
+  const { numberFormatter, updateReaction } = useData();
+  const [fav, setFav] = useState(false);
   return (
     <Stack
-      onMouseOver={() => {}}
+      onMouseOver={() => {
+        setPaused(true);
+      }}
+      onMouseLeave={() => {
+        setPaused(false);
+      }}
       width={1}
       boxShadow={2}
       overflow={"hidden"}
@@ -53,10 +63,10 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
     >
       <Stack
         width={1}
-        minHeight={1 / 2}
         sx={{ aspectRatio: 1 / 1 }}
         position={"relative"}
         zIndex={1}
+        maxHeight={"270px"}
       >
         <Image
           className="image"
@@ -91,17 +101,25 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
               <ShoppingCartOutlined fontSize="inherit" color="inherit" />
             </Stack>
             <Stack
+              onClick={() => {
+                updateReaction(productId);
+                setFav(true);
+              }}
               width={30}
               height={30}
               bgcolor={"#ffffff99"}
               borderRadius={"50%"}
-              color={"#1389ff"}
+              color={fav ? "#e31b23" : "#1389ff"}
               alignItems={"center"}
               justifyContent={"center"}
               fontSize={20}
               sx={{ cursor: "pointer" }}
             >
-              <FavoriteBorder fontSize="inherit" color="inherit" />
+              {fav ? (
+                <Favorite fontSize="inherit" color="inherit" />
+              ) : (
+                <FavoriteBorder fontSize="inherit" color="inherit" />
+              )}
             </Stack>
             <Stack
               width={30}

@@ -25,6 +25,7 @@ export const RecentlyAddedProducts = () => {
                   productName={item.productName}
                   productPrice={item.productPrice}
                   productColor={item.productColor}
+                  productId={item._id}
                 />
               </Stack>
             </Grid>

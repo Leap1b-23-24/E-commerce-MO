@@ -8,15 +8,24 @@ const step = [1, 2, 3, 4];
 export const FeaturedProducts = () => {
   const { allProducts } = useData();
   const [selectedStep, setSelectedStep] = useState(1);
-  const [delay, setDelay] = useState(5000);
+  const [delay, setDelay] = useState(4000);
+  const [paused, setPaused] = useState(false);
 
-  const timeoutId = setTimeout(() => {
-    if (selectedStep != 4) {
-      setSelectedStep(selectedStep + 1);
-    } else {
-      setSelectedStep(1);
-    }
-  }, delay);
+  useEffect(() => {
+    if (paused) return;
+
+    const timeoutId = setTimeout(() => {
+      if (selectedStep != 4) {
+        setSelectedStep(selectedStep + 1);
+      } else {
+        setSelectedStep(1);
+      }
+    }, delay);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [paused, selectedStep]);
 
   return (
     <Container maxWidth="lg">
@@ -35,7 +44,6 @@ export const FeaturedProducts = () => {
             width: "400%",
             position: "relative",
             left: `${150 - (selectedStep - 1) * 100}%`,
-            // transition: "1s linear",
           }}
           flexDirection={"row"}
           justifyContent={"space-evenly"}
@@ -58,7 +66,8 @@ export const FeaturedProducts = () => {
                     productName={item.productName}
                     productImage={item.productImage[0]}
                     productPrice={item.productPrice}
-                    timeoutId={timeoutId}
+                    productId={item._id}
+                    setPaused={setPaused}
                   />
                 </Stack>
               ))}

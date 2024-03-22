@@ -70,6 +70,8 @@ export const addProduct: RequestHandler = async (req, res) => {
       productSize,
       productTag,
       productSoldQty: 0,
+      salePercent: 0,
+      productReactionCount: 0,
       updatedAt: new Date(),
       createdAt: new Date(),
     });
@@ -129,6 +131,45 @@ export const getAllProducts: RequestHandler = async (req, res) => {
     const allProducts = await ProductModel.find({});
 
     return res.json(allProducts);
+  } catch (err) {
+    res.json(err);
+  }
+};
+
+export const updateReaction: RequestHandler = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    const { productId } = req.body;
+
+    if (!authorization) {
+      return res.status(401).json({
+        message: "Бүртгэлгүй хэрэглэгч байна. Та бүртгүүлээд дахин оролдоно уу",
+      });
+    }
+    const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
+
+    const editProduct = await ProductModel.findOne({
+      merchId: id,
+      _id: productId,
+    });
+
+    if (!editProduct) {
+      return res.status(401).json({
+        message: "Шинэчлэх бараа олдсонгүй.",
+      });
+    }
+    const reaction = editProduct.productReactionCount;
+    // return res.json(reaction);
+    if (reaction || reaction == 0) {
+      const editProd = await ProductModel.findOneAndUpdate(
+        { _id: productId },
+        {
+          productReactionCount: reaction + 1,
+          updatedAt: new Date(),
+        }
+      );
+    }
+    return res.json({ message: "Success" });
   } catch (err) {
     res.json(err);
   }

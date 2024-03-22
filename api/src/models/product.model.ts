@@ -13,6 +13,7 @@ const productSchema = new Schema({
   productColor: Object,
   productSize: Object,
   productTag: Object,
+  productReactionCount: { type: Number, required: false },
   productSoldQty: { type: Number, required: false },
   salePercent: { type: Number, required: false },
   updatedAt: Date,

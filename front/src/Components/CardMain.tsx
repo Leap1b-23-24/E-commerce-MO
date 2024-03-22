@@ -1,21 +1,41 @@
 "use client";
 import {
+  Favorite,
   FavoriteBorder,
   ShoppingCartOutlined,
   ZoomIn,
 } from "@mui/icons-material";
-import { Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useData } from "./Providers/DataProvider";
+import { useState } from "react";
+import { ProductDetail } from "./ProductDetail";
 type CardMainProps = {
   productImage: string;
   productName: string;
   productColor: string[];
   productPrice: number;
+  productId: string;
+};
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  maxWidth: "800px",
+  width: { xs: "90%", md: "50%" },
+  bgcolor: "background.paper",
+  border: "1px solid #DADCE0",
+  boxShadow: 24,
+  p: 2,
+  borderRadius: "8px",
 };
 export const CardMain = (props: CardMainProps) => {
-  const { productImage, productName, productColor, productPrice } = props;
-  const { numberFormatter } = useData();
+  const { productImage, productName, productColor, productPrice, productId } =
+    props;
+  const { numberFormatter, updateReaction } = useData();
+  const [open, setOpen] = useState(false);
+  const [fav, setFav] = useState(false);
   return (
     <Stack width={1} height={1}>
       <Stack
@@ -71,18 +91,29 @@ export const CardMain = (props: CardMainProps) => {
               <ShoppingCartOutlined fontSize="inherit" color="inherit" />
             </Stack>
             <Stack
+              onClick={() => {
+                updateReaction(productId);
+                setFav(true);
+              }}
               width={30}
               height={30}
               borderRadius={"50%"}
-              color={"#1389ff"}
+              color={fav ? "#e31b23" : "#1389ff"}
               alignItems={"center"}
               justifyContent={"center"}
               fontSize={20}
               sx={{ cursor: "pointer" }}
             >
-              <FavoriteBorder fontSize="inherit" color="inherit" />
+              {fav ? (
+                <Favorite fontSize="inherit" color="inherit" />
+              ) : (
+                <FavoriteBorder fontSize="inherit" color="inherit" />
+              )}
             </Stack>
             <Stack
+              onClick={() => {
+                setOpen(true);
+              }}
               width={30}
               height={30}
               borderRadius={"50%"}
@@ -127,6 +158,20 @@ export const CardMain = (props: CardMainProps) => {
           </Typography>
         </Stack>
       </Stack>
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <Box sx={style}>
+          <ProductDetail
+            productImage={productImage}
+            productName={productName}
+            setOpen={setOpen}
+          />
+        </Box>
+      </Modal>
     </Stack>
   );
 };

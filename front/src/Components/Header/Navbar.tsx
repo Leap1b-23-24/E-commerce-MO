@@ -29,15 +29,11 @@ export const Navbar = () => {
             >
               Ecommerce
             </Typography>
-            <Stack
-              flexDirection={"row"}
-              gap={3}
-              onClick={() => {
-                router.push("/");
-              }}
-              sx={{ cursor: "pointer" }}
-            >
+            <Stack flexDirection={"row"} gap={3} sx={{ cursor: "pointer" }}>
               <Typography
+                onClick={() => {
+                  router.push("/");
+                }}
                 color={
                   pathname.includes("Category") ? "#0D0E43" : "primary.light"
                 }
@@ -45,6 +41,9 @@ export const Navbar = () => {
                 Нүүр <KeyboardArrowDown />
               </Typography>
               <Typography
+                onClick={() => {
+                  router.push("/Category");
+                }}
                 color={
                   !pathname.includes("Category") ? "#0D0E43" : "primary.light"
                 }
