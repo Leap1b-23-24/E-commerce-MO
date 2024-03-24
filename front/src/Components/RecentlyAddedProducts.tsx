@@ -18,7 +18,7 @@ export const RecentlyAddedProducts = () => {
         </Typography>
         <Grid container columnSpacing={"53px"} rowSpacing={"62px"}>
           {allProducts.map((item, index) => (
-            <Grid item xs={3} key={index}>
+            <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
               <Stack width={270}>
                 <CardMain
                   productImage={item.productImage[0]}

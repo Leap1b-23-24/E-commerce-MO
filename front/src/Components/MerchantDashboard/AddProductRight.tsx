@@ -1,11 +1,12 @@
 "use client";
-import { Button, Chip, Grid, Stack, Typography } from "@mui/material";
+import { Button, Chip, Grid, MenuItem, Stack, Typography } from "@mui/material";
 import { CustomInput } from "../Authentication/CustomInput";
 import { HighlightOff } from "@mui/icons-material";
 import { ChangeEventHandler, Dispatch, SetStateAction, useState } from "react";
 import { AddBtn } from "./AddBtn";
 import { MuiColorInput } from "mui-color-input";
 import { string } from "yup";
+import { useData } from "../Providers/DataProvider";
 
 type AddProductRightProps = {
   productCategory: string;
@@ -37,20 +38,28 @@ export const AddProductRight = (props: AddProductRightProps) => {
 
   const [imageUrl, setImageUrl] = useState(["1", "2", "3", "4"]);
   const [value, setValue] = useState("#000000");
+  const { allCategories } = useData();
 
   return (
     <Stack gap={3} width={1}>
       <Stack bgcolor={"common.white"} p={3} borderRadius={1.5} gap={2}>
         <CustomInput
           label="Ерөнхий ангилал"
-          type="text"
+          type="select"
+          select
           placeholder="Сонгох"
           labelWeight={600}
           name="productCategory"
           value={productCategory}
           onBlur={handleBlur}
           onChange={handleChange}
-        />
+        >
+          {allCategories.map((item, index) => (
+            <MenuItem key={index} value={item.categoryName}>
+              {item.categoryName}
+            </MenuItem>
+          ))}
+        </CustomInput>
         <CustomInput
           label="Дэд ангилал"
           type="text"

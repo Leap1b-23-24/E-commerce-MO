@@ -1,16 +1,28 @@
 "use client";
-import { Add, Search } from "@mui/icons-material";
+import {
+  Add,
+  Category,
+  CategoryOutlined,
+  KeyboardArrowDownOutlined,
+  PlaceOutlined,
+  Search,
+} from "@mui/icons-material";
 import {
   Box,
   Button,
   IconButton,
   InputAdornment,
+  List,
+  ListItemButton,
+  ListItemText,
+  Menu,
+  MenuItem,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import { IconNameDropdown } from "./IconNameDropdown";
-import { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { ProducListTable } from "./ProductListTable";
 import { useData } from "../Providers/DataProvider";
 
@@ -26,7 +38,7 @@ const dropDown = [
 export const ProductTab = (props: ProductTabProps) => {
   const { setEditId } = props;
   const [searchValue, setSearchValue] = useState("");
-  const { setAdd } = useData();
+  const { setAdd, allCategories } = useData();
   return (
     <Stack width={1} height={"100vh"} p={3}>
       <Button
@@ -37,7 +49,6 @@ export const ProductTab = (props: ProductTabProps) => {
         color="secondary"
         style={{
           width: "fit-content",
-          padding: "12px 16px",
         }}
       >
         <Stack

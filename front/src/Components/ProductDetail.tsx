@@ -18,12 +18,12 @@ export const ProductDetail = (props: ProductDetailProps) => {
       p={3}
       alignItems={"center"}
       justifyContent={"center"}
+      overflow={"hidden"}
     >
       <Stack
         onClick={() => {
           setOpen(false);
         }}
-        // bgcolor={"#EEEFFB"}
         p={1}
         borderRadius={"50%"}
         position={"absolute"}
@@ -35,7 +35,7 @@ export const ProductDetail = (props: ProductDetailProps) => {
       </Stack>
       <Stack position={"relative"} width={"600px"} height={"600px"}>
         <Image
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "contain", mixBlendMode: "multiply" }}
           src={productImage}
           alt="zoom in"
           fill

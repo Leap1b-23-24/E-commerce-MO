@@ -12,6 +12,11 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "./AuthProvider";
+type CategoryType = {
+  categoryName: string;
+  updatedAt: Date;
+  createdAt: Date;
+};
 type ProductType = {
   _id: string;
   merchId: string;
@@ -59,12 +64,16 @@ type DataContextType = {
   setAdd: Dispatch<SetStateAction<boolean>>;
   searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
+  addCategory: (categoryName: string) => void;
+  allCategories: CategoryType[];
+  setAllCategories: Dispatch<SetStateAction<CategoryType[]>>;
 };
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [allProducts, setAllProducts] = useState<ProductType[]>([]);
+  const [allCategories, setAllCategories] = useState<CategoryType[]>([]);
   const [add, setAdd] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const { isLogged, refresh, setRefresh } = useAuth();
@@ -163,6 +172,36 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const addCategory = async (categoryName: string) => {
+    try {
+      const { data } = await api.post("category/addCategory", {
+        categoryName,
+      });
+      setRefresh((prev) => prev + 1);
+      toast.success(data.message, {
+        position: "top-center",
+        hideProgressBar: true,
+      });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message ?? error.message, {
+          position: "top-center",
+          hideProgressBar: true,
+        });
+      }
+      console.log(error), "FFF";
+    }
+  };
+
+  const getAllCategories = async () => {
+    try {
+      const { data } = await api.get("category/getAllCategories");
+      setAllCategories(data);
+    } catch (error) {
+      console.log(error), "FFF";
+    }
+  };
+
   const getAllProducts = async () => {
     try {
       const { data } = await api.get("product/getAllProducts");
@@ -189,6 +228,7 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     getProducts();
     getAllProducts();
+    getAllCategories();
   }, [isLogged, refresh]);
 
   return (
@@ -207,6 +247,9 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         setAdd,
         searchValue,
         setSearchValue,
+        addCategory,
+        allCategories,
+        setAllCategories,
       }}
     >
       {children}

@@ -61,7 +61,7 @@ export const CardMain = (props: CardMainProps) => {
         <Image
           className="image"
           alt="product image"
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "cover", mixBlendMode: "multiply" }}
           src={productImage}
           fill
           sizes="small"

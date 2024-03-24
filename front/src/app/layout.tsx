@@ -9,6 +9,11 @@ import { theme } from "./theme";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { DataProvider } from "@/Components/Providers/DataProvider";
+import { Header } from "@/Components/Header/Header";
+import { Navbar } from "@/Components/Header/Navbar";
+import { Footer } from "@/Components/Header/Footer";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,13 +27,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [test, setTest] = useState();
+  const pathname = usePathname();
+  console.log(pathname.search("Merchant"), "s");
   return (
     <html lang="en">
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <AuthProvider>
-              <DataProvider>{children}</DataProvider>
+              <DataProvider>
+                {pathname.search("Merchant") < 0 && (
+                  <>
+                    <Header />
+                    <Navbar />
+                  </>
+                )}
+
+                {children}
+                {pathname.search("Merchant") < 0 && <Footer />}
+              </DataProvider>
             </AuthProvider>
             <ToastContainer />
           </ThemeProvider>

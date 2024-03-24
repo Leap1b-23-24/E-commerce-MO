@@ -22,6 +22,12 @@ export const theme = createTheme({
       light: "#3F4145",
       contrastText: "#fff",
     },
+    success: {
+      main: "#FB2E86",
+      light: "#FB2E86",
+      dark: "#FB2E86",
+      contrastText: "#fff",
+    },
   },
   typography: {
     button: {

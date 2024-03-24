@@ -5,4 +5,4 @@ const categorySchema = new Schema({
   createdAt: Date,
   updatedAt: Date,
 });
-export const ProductModel = model("product", categorySchema);
+export const CategoryModel = model("category", categorySchema);

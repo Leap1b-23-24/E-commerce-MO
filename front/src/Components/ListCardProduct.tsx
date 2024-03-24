@@ -6,10 +6,11 @@ import {
   ShoppingCartOutlined,
   ZoomIn,
 } from "@mui/icons-material";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useData } from "./Providers/DataProvider";
 import { useState } from "react";
+import { ProductDetail } from "./ProductDetail";
 
 type ListCardProductProps = {
   productImage: string[];
@@ -18,6 +19,19 @@ type ListCardProductProps = {
   productPrice: number;
   productAdditional: string;
   productId: string;
+};
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  maxWidth: "800px",
+  width: { xs: "90%", md: "50%" },
+  bgcolor: "background.paper",
+  border: "1px solid #DADCE0",
+  boxShadow: 24,
+  p: 2,
+  borderRadius: "8px",
 };
 export const ListCardProduct = (props: ListCardProductProps) => {
   const {
@@ -28,12 +42,22 @@ export const ListCardProduct = (props: ListCardProductProps) => {
     productAdditional,
     productId,
   } = props;
-  const { updateReaction } = useData();
+  const { updateReaction, numberFormatter } = useData();
   const [fav, setFav] = useState(false);
+  const [open, setOpen] = useState(false);
   return (
     <Stack width={1} flexDirection={"row"}>
-      <Stack width={1 / 4} sx={{ aspectRatio: 1 / 1 }} position={"relative"}>
-        <Image alt="card image" fill src={productImage[0]} />
+      <Stack
+        width={{ xs: 1 / 2, md: 1 / 4 }}
+        sx={{ aspectRatio: 1 / 1 }}
+        position={"relative"}
+      >
+        <Image
+          alt="card image"
+          style={{ objectFit: "contain", mixBlendMode: "multiply" }}
+          fill
+          src={productImage[0]}
+        />
       </Stack>
       <Stack width={3 / 4} justifyContent={"space-between"} p={2}>
         <Box display={"flex"} flexDirection={"column"} gap={2}>
@@ -55,7 +79,8 @@ export const ListCardProduct = (props: ListCardProductProps) => {
           </Stack>
           <Stack flexDirection={"row"} gap={2}>
             <Typography fontSize={21} fontWeight={400} color={"#151875"}>
-              {productPrice}
+              {numberFormatter.format(productPrice)}
+              {"₮"}
             </Typography>
             <>Rating</>
           </Stack>
@@ -112,6 +137,9 @@ export const ListCardProduct = (props: ListCardProductProps) => {
               )}
             </Stack>
             <Stack
+              onClick={() => {
+                setOpen(true);
+              }}
               width={30}
               height={30}
               bgcolor={"#ffffff99"}
@@ -127,6 +155,20 @@ export const ListCardProduct = (props: ListCardProductProps) => {
           </Stack>
         </Stack>
       </Stack>
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <Box sx={style}>
+          <ProductDetail
+            productImage={productImage[0]}
+            productName={productName}
+            setOpen={setOpen}
+          />
+        </Box>
+      </Modal>
     </Stack>
   );
 };

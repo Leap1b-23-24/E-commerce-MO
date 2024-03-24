@@ -15,7 +15,7 @@ export default function MerchantDashbaord() {
 
   const router = useRouter();
   if (!isLogged) {
-    router.push("/Signin");
+    router.push("/MerchantSignin");
     return <LoadingPage />;
   }
   return (

@@ -15,7 +15,7 @@ export const Navbar = () => {
   const router = useRouter();
   const { setSearchValue } = useData();
   return (
-    <Stack bgcolor={"common.white"} py={"19px"}>
+    <Stack py={"19px"} bgcolor="#F7F7F8">
       <Container maxWidth="lg">
         <Stack width={1} flexDirection={"row"} justifyContent={"space-between"}>
           <Stack flexDirection={"row"} alignItems={"center"} gap={"58px"}>

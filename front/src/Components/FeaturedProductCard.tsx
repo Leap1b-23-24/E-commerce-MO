@@ -71,7 +71,11 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
         <Image
           className="image"
           alt="product image"
-          style={{ objectFit: "cover", aspectRatio: 1 / 1.2 }}
+          style={{
+            objectFit: "cover",
+            aspectRatio: 1 / 1.2,
+            mixBlendMode: "multiply",
+          }}
           fill
           sizes="small"
           src={productImage}
