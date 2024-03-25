@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   addProduct,
+  addReview,
   deleteProduct,
   getAllProducts,
   getProducts,
@@ -14,5 +15,6 @@ productRouter
   .get("/getProducts", getProducts)
   .post("/deleteProduct", deleteProduct)
   .get("/getAllProducts", getAllProducts)
-  .post("/updateReaction", updateReaction);
+  .post("/updateReaction", updateReaction)
+  .post("/addReview", addReview);
 export default productRouter;

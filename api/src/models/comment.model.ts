@@ -1,9 +1,10 @@
 import mongoose, { Schema, model } from "mongoose";
 
 const commentSchema = new Schema({
-  productID: mongoose.Schema.Types.ObjectId,
-  userID: { type: mongoose.Schema.Types.ObjectId, required: false },
+  userId: { type: mongoose.Schema.Types.ObjectId, required: false },
+  productId: mongoose.Schema.Types.ObjectId,
   comment: String,
+  star: Number,
   createdAt: Date,
   updatedAt: Date,
 });

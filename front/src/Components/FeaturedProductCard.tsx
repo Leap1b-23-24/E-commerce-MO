@@ -9,6 +9,7 @@ import {
   ZoomIn,
 } from "@mui/icons-material";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type FeaturedProductCardProps = {
   productImage: string;
@@ -21,8 +22,9 @@ type FeaturedProductCardProps = {
 export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
   const { productImage, productName, productPrice, setPaused, productId } =
     props;
-  const { numberFormatter, updateReaction } = useData();
+  const { numberFormatter, updateReaction, setDetailId } = useData();
   const [fav, setFav] = useState(false);
+  const router = useRouter();
   return (
     <Stack
       onMouseOver={() => {
@@ -141,6 +143,10 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
           </Stack>
           <Stack pb={1.5} alignItems={"center"}>
             <Button
+              onClick={() => {
+                setDetailId(productId);
+                router.push("/ProductDetail");
+              }}
               variant="contained"
               color="primary"
               sx={{
@@ -149,7 +155,7 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
                 width: "fit-content",
               }}
             >
-              <Typography>View Details</Typography>
+              <Typography>дэлгэрэнгүй</Typography>
             </Button>
           </Stack>
         </Stack>

@@ -174,3 +174,33 @@ export const updateReaction: RequestHandler = async (req, res) => {
     res.json(err);
   }
 };
+
+export const addReview: RequestHandler = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    const { productId, star } = req.body;
+
+    let userId = null;
+
+    if (authorization) {
+      const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
+      userId = id;
+    }
+
+    const editProduct = await ProductModel.findOne({
+      _id: productId,
+    });
+
+    if (!editProduct) {
+      return res.status(401).json({
+        message: "Шинэчлэх бараа олдсонгүй.",
+      });
+    }
+
+    // const edit=await ProductModel.findOneAndUpdate({_id:productId},{stars.[2]:5})
+
+    return res.json({ message: "Success" });
+  } catch (err) {
+    res.json(err);
+  }
+};

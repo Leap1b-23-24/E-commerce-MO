@@ -16,6 +16,13 @@ const productSchema = new Schema({
   productReactionCount: { type: Number, required: false },
   productSoldQty: { type: Number, required: false },
   salePercent: { type: Number, required: false },
+  stars: {
+    1: { type: Number, required: false },
+    2: { type: Number, required: false },
+    3: { type: Number, required: false },
+    4: { type: Number, required: false },
+    5: { type: Number, required: false },
+  },
   updatedAt: Date,
   createdAt: Date,
 });

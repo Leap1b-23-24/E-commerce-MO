@@ -67,6 +67,9 @@ type DataContextType = {
   addCategory: (categoryName: string) => void;
   allCategories: CategoryType[];
   setAllCategories: Dispatch<SetStateAction<CategoryType[]>>;
+  detailId: string;
+  setDetailId: Dispatch<SetStateAction<string>>;
+  addReview: (productId: string, star: number, comment: string) => void;
 };
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
@@ -77,6 +80,7 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
   const [add, setAdd] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const { isLogged, refresh, setRefresh } = useAuth();
+  const [detailId, setDetailId] = useState("");
 
   const numberFormatter = new Intl.NumberFormat("en-US", {
     style: "decimal",
@@ -225,6 +229,42 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const addReview = async (
+    productId: string,
+    star: number,
+    comment: string
+  ) => {
+    try {
+      const { data } = await api.post(
+        "product/addReview",
+        { productId, star },
+        { headers: { Authorization: localStorage.getItem("token") } }
+      );
+
+      const reviewID = data.reviewID;
+
+      const { data: dataComment } = await api.post(
+        "comment/addComment",
+        {
+          productId,
+          comment,
+          star,
+        },
+        { headers: { Authorization: localStorage.getItem("token") } }
+      );
+      toast.success(dataComment.message, {
+        position: "top-center",
+        hideProgressBar: true,
+      });
+      toast.success(data.message, {
+        position: "top-center",
+        hideProgressBar: true,
+      });
+    } catch (error) {
+      console.log(error), "FFF";
+    }
+  };
+
   useEffect(() => {
     getProducts();
     getAllProducts();
@@ -250,6 +290,9 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         addCategory,
         allCategories,
         setAllCategories,
+        detailId,
+        setDetailId,
+        addReview,
       }}
     >
       {children}
