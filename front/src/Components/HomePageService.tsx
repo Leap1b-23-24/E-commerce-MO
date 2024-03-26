@@ -37,7 +37,7 @@ export const HomePageService = () => {
         <Stack>
           <Grid container spacing={"29.8px"}>
             {serviceItems.map((item, index) => (
-              <Grid item xs={3}>
+              <Grid key={index} item xs={3}>
                 <Stack
                   width={1}
                   bgcolor={"common.white"}
@@ -48,7 +48,7 @@ export const HomePageService = () => {
                   gap={"27px"}
                 >
                   <Stack position={"relative"} height={"65px"} width={"69px"}>
-                    <Image alt="service" src={item.img} fill />
+                    <Image alt="service" src={item.img} fill sizes="small" />
                   </Stack>
                   <Stack textAlign={"center"} gap={"15px"}>
                     <Typography color={"#151875"}>{item.title}</Typography>

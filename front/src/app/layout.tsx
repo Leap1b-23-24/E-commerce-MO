@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { AuthProvider } from "@/Components/Providers/AuthProvider";
-import { ThemeProvider } from "@mui/material";
+import { Stack, ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -38,10 +38,10 @@ export default function RootLayout({
             <AuthProvider>
               <DataProvider>
                 {pathname.search("Merchant") < 0 && (
-                  <>
+                  <Stack>
                     <Header />
                     <Navbar />
-                  </>
+                  </Stack>
                 )}
 
                 {children}

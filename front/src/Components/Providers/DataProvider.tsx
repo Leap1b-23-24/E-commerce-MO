@@ -41,6 +41,10 @@ type ProductType = {
 };
 type CartType = {
   productId: string;
+  productImage: string[];
+  productName: string;
+  productColor: string[];
+  productPrice: number;
   orderQty: number;
 };
 
@@ -91,6 +95,7 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
   const { isLogged, refresh, setRefresh } = useAuth();
   const [detailId, setDetailId] = useState("");
   const [cartProduct, setCartProduct] = useState<CartType[]>([]);
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   const numberFormatter = new Intl.NumberFormat("en-US", {
     style: "decimal",
@@ -273,10 +278,28 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    getProducts();
+    if (isLogged) {
+      getProducts();
+    }
+  }, [isLogged, refresh]);
+
+  useEffect(() => {
     getAllProducts();
     getAllCategories();
-  }, [isLogged, refresh]);
+  }, [refresh]);
+
+  useEffect(() => {
+    const cart = localStorage.getItem("cartProduct");
+    if (cart) {
+      setCartProduct(JSON.parse(cart));
+    }
+    setIsFirstRender(false);
+  }, []);
+
+  useEffect(() => {
+    if (isFirstRender) return;
+    localStorage.setItem("cartProduct", JSON.stringify(cartProduct));
+  }, [cartProduct]);
 
   return (
     <DataContext.Provider

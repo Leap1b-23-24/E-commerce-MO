@@ -10,8 +10,9 @@ import Image from "next/image";
 import { useData } from "./Providers/DataProvider";
 import { useState } from "react";
 import { ProductDetail } from "./ProductDetail";
+import { useRouter } from "next/navigation";
 type CardMainProps = {
-  productImage: string;
+  productImage: string[];
   productName: string;
   productColor: string[];
   productPrice: number;
@@ -37,7 +38,11 @@ export const CardMain = (props: CardMainProps) => {
     useData();
   const [open, setOpen] = useState(false);
   const [fav, setFav] = useState(false);
-  // console.log(cartProduct);
+  const { setDetailId } = useData();
+  const router = useRouter();
+  const isInCart = Boolean(
+    cartProduct.find((item) => item.productId == productId)
+  );
   return (
     <Stack width={1} height={1}>
       <Stack
@@ -64,7 +69,8 @@ export const CardMain = (props: CardMainProps) => {
           className="image"
           alt="product image"
           style={{ objectFit: "cover", mixBlendMode: "multiply" }}
-          src={productImage}
+          priority={true}
+          src={productImage[0]}
           fill
           sizes="small"
         />
@@ -90,14 +96,17 @@ export const CardMain = (props: CardMainProps) => {
               fontSize={20}
               sx={{ cursor: "pointer" }}
               onClick={() => {
-                if (
-                  Boolean(
-                    cartProduct.find((item) => item.productId == productId)
-                  )
-                ) {
+                if (!isInCart) {
                   setCartProduct((prev) => [
                     ...prev,
-                    { productId, orderQty: 1 },
+                    {
+                      productId,
+                      productImage,
+                      productName,
+                      productColor,
+                      productPrice,
+                      orderQty: 1,
+                    },
                   ]);
                 }
               }}
@@ -144,6 +153,11 @@ export const CardMain = (props: CardMainProps) => {
       </Stack>
       <Stack alignItems={"center"}>
         <Typography
+          onClick={() => {
+            setDetailId(productId);
+            router.push("/ProductDetail");
+          }}
+          sx={{ cursor: "pointer" }}
           color={"#151875"}
           mt={"18px"}
           fontSize={18}
@@ -180,7 +194,7 @@ export const CardMain = (props: CardMainProps) => {
       >
         <Box sx={style}>
           <ProductDetail
-            productImage={productImage}
+            productImage={productImage[0]}
             productName={productName}
             setOpen={setOpen}
           />

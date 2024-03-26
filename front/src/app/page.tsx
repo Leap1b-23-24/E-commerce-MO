@@ -19,6 +19,7 @@ export default function Home() {
       </Stack>
     );
   }
+
   return (
     <Stack minHeight={"100vh"}>
       <Stack width={1} flex={1} bgcolor="#F7F7F8">

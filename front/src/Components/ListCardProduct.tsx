@@ -11,6 +11,7 @@ import Image from "next/image";
 import { useData } from "./Providers/DataProvider";
 import { useState } from "react";
 import { ProductDetail } from "./ProductDetail";
+import { useRouter } from "next/navigation";
 
 type ListCardProductProps = {
   productImage: string[];
@@ -45,9 +46,15 @@ export const ListCardProduct = (props: ListCardProductProps) => {
     productId,
     avgStars,
   } = props;
-  const { updateReaction, numberFormatter } = useData();
+  const { updateReaction, numberFormatter, setCartProduct, cartProduct } =
+    useData();
   const [fav, setFav] = useState(false);
   const [open, setOpen] = useState(false);
+  const { setDetailId } = useData();
+  const router = useRouter();
+  const isInCart = Boolean(
+    cartProduct.find((item) => item.productId == productId)
+  );
   return (
     <Stack width={1} flexDirection={"row"}>
       <Stack
@@ -59,12 +66,22 @@ export const ListCardProduct = (props: ListCardProductProps) => {
           alt="card image"
           style={{ objectFit: "contain", mixBlendMode: "multiply" }}
           fill
+          sizes="small"
+          priority={true}
           src={productImage[0]}
         />
       </Stack>
       <Stack width={3 / 4} justifyContent={"space-between"} p={2}>
         <Box display={"flex"} flexDirection={"column"} gap={2}>
-          <Stack flexDirection={"row"} gap={2}>
+          <Stack
+            flexDirection={"row"}
+            gap={2}
+            sx={{ cursor: "pointer" }}
+            onClick={() => {
+              setDetailId(productId);
+              router.push("/ProductDetail");
+            }}
+          >
             <Typography color={"#151875"} fontSize={18} fontWeight={700}>
               {productName}
             </Typography>
@@ -115,6 +132,21 @@ export const ListCardProduct = (props: ListCardProductProps) => {
               justifyContent={"center"}
               fontSize={20}
               sx={{ cursor: "pointer" }}
+              onClick={() => {
+                if (!isInCart) {
+                  setCartProduct((prev) => [
+                    ...prev,
+                    {
+                      productId,
+                      productImage,
+                      productName,
+                      productColor,
+                      productPrice,
+                      orderQty: 1,
+                    },
+                  ]);
+                }
+              }}
             >
               <ShoppingCartOutlined fontSize="inherit" color="inherit" />
             </Stack>

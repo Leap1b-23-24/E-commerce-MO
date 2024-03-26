@@ -4,7 +4,7 @@ import { CardMain } from "./CardMain";
 import { useData } from "./Providers/DataProvider";
 
 export const RecentlyAddedProducts = () => {
-  const { allProducts } = useData();
+  const { allProducts, cartProduct } = useData();
   return (
     <Container maxWidth="lg">
       <Stack alignItems={"center"} mb={"119px"}>
@@ -13,6 +13,9 @@ export const RecentlyAddedProducts = () => {
           fontSize={42}
           fontWeight={800}
           mb={"53px"}
+          onClick={() => {
+            console.log("cart", cartProduct);
+          }}
         >
           Шинээр нэмэгдсэн
         </Typography>
@@ -21,7 +24,7 @@ export const RecentlyAddedProducts = () => {
             <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
               <Stack width={270}>
                 <CardMain
-                  productImage={item.productImage[0]}
+                  productImage={item.productImage}
                   productName={item.productName}
                   productPrice={item.productPrice}
                   productColor={item.productColor}

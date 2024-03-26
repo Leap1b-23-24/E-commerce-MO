@@ -1,9 +1,6 @@
 "use client";
 import { AllProducts } from "@/Components/AllProducts";
 import { FilterProdcut } from "@/Components/Filter/FilterProduct";
-import { Footer } from "@/Components/Header/Footer";
-import { Header } from "@/Components/Header/Header";
-import { Navbar } from "@/Components/Header/Navbar";
 import { ListProducts } from "@/Components/ListProducts";
 import { useData } from "@/Components/Providers/DataProvider";
 import { ViewList, Window } from "@mui/icons-material";

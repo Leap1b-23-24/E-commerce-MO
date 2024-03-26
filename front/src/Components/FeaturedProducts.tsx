@@ -64,9 +64,10 @@ export const FeaturedProducts = () => {
                 <Stack key={index} width={1 / 2}>
                   <FeaturedProductCard
                     productName={item.productName}
-                    productImage={item.productImage[0]}
+                    productImage={item.productImage}
                     productPrice={item.productPrice}
                     productId={item._id}
+                    productColor={item.productColor}
                     setPaused={setPaused}
                   />
                 </Stack>

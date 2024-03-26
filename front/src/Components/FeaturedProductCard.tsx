@@ -12,19 +12,35 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 type FeaturedProductCardProps = {
-  productImage: string;
+  productImage: string[];
   productName: string;
   productPrice: number;
   productId: string;
+  productColor: string[];
   setPaused: (value: boolean) => void;
 };
 
 export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
-  const { productImage, productName, productPrice, setPaused, productId } =
-    props;
-  const { numberFormatter, updateReaction, setDetailId } = useData();
+  const {
+    productImage,
+    productName,
+    productPrice,
+    setPaused,
+    productId,
+    productColor,
+  } = props;
+  const {
+    numberFormatter,
+    updateReaction,
+    setDetailId,
+    cartProduct,
+    setCartProduct,
+  } = useData();
   const [fav, setFav] = useState(false);
   const router = useRouter();
+  const isInCart = Boolean(
+    cartProduct.find((item) => item.productId == productId)
+  );
   return (
     <Stack
       onMouseOver={() => {
@@ -73,6 +89,7 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
         <Image
           className="image"
           alt="product image"
+          priority={true}
           style={{
             objectFit: "cover",
             aspectRatio: 1 / 1.2,
@@ -80,7 +97,7 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
           }}
           fill
           sizes="small"
-          src={productImage}
+          src={productImage[0]}
         />
         <Stack
           position={"absolute"}
@@ -94,6 +111,21 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
         >
           <Stack flexDirection={"row"} gap={2} p={"11px"}>
             <Stack
+              onClick={() => {
+                if (!isInCart) {
+                  setCartProduct((prev) => [
+                    ...prev,
+                    {
+                      productId,
+                      productImage,
+                      productName,
+                      productColor,
+                      productPrice,
+                      orderQty: 1,
+                    },
+                  ]);
+                }
+              }}
               width={30}
               height={30}
               bgcolor={"#0000000D"}

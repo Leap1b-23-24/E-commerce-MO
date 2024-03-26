@@ -15,8 +15,12 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "next/image";
+import { useData } from "../Providers/DataProvider";
+import { useRouter } from "next/navigation";
 
 export const Header = () => {
+  const { cartProduct } = useData();
+  const router = useRouter();
   return (
     <Stack bgcolor={"primary.main"} py={"14px"} width={1}>
       <Container maxWidth="lg">
@@ -71,8 +75,13 @@ export const Header = () => {
               </Typography>
               <Favorite fontSize="small" />
             </Stack>
-            <IconButton size="small">
-              <Badge badgeContent={1} color="warning">
+            <IconButton
+              size="small"
+              onClick={() => {
+                router.push("/ShoppingCart");
+              }}
+            >
+              <Badge badgeContent={cartProduct.length} color="warning">
                 <Typography color={"#f1f1f1"}>
                   <ShoppingCartOutlined fontSize="medium" color="inherit" />
                 </Typography>

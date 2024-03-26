@@ -129,6 +129,7 @@ export const ProductRating = (props: ProductRatingProps) => {
         >
           {comments?.map((item, index) => (
             <Stack
+              key={index}
               borderBottom={2}
               pb={4}
               borderColor={"#BFC6E0"}

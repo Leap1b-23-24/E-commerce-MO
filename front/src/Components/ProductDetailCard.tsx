@@ -77,7 +77,7 @@ export const ProductDetailCard = (props: ProductDetailCardProps) => {
             >
               <Grid width={0.3} container spacing={"11px"} overflow={"scroll"}>
                 {productImage?.map((item, index) => (
-                  <Grid item>
+                  <Grid item key={index}>
                     <Stack
                       position={"relative"}
                       sx={{

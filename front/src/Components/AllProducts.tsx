@@ -14,7 +14,7 @@ export const AllProducts = (props: AllProductsProps) => {
         <Grid item xs={12} sm={6} md={column} key={index}>
           <Stack width={270}>
             <CardMain
-              productImage={item.productImage[0]}
+              productImage={item.productImage}
               productName={item.productName}
               productPrice={item.productPrice}
               productColor={item.productColor}
