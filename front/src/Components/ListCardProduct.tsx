@@ -6,7 +6,7 @@ import {
   ShoppingCartOutlined,
   ZoomIn,
 } from "@mui/icons-material";
-import { Box, Button, Modal, Stack, Typography } from "@mui/material";
+import { Box, Button, Modal, Rating, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useData } from "./Providers/DataProvider";
 import { useState } from "react";
@@ -18,7 +18,9 @@ type ListCardProductProps = {
   productColor: string[];
   productPrice: number;
   productAdditional: string;
+
   productId: string;
+  avgStars: number;
 };
 const style = {
   position: "absolute" as "absolute",
@@ -41,6 +43,7 @@ export const ListCardProduct = (props: ListCardProductProps) => {
     productPrice,
     productAdditional,
     productId,
+    avgStars,
   } = props;
   const { updateReaction, numberFormatter } = useData();
   const [fav, setFav] = useState(false);
@@ -77,12 +80,12 @@ export const ListCardProduct = (props: ListCardProductProps) => {
               ))}
             </Stack>
           </Stack>
-          <Stack flexDirection={"row"} gap={2}>
+          <Stack flexDirection={"row"} gap={2} alignItems={"center"}>
             <Typography fontSize={21} fontWeight={400} color={"#151875"}>
               {numberFormatter.format(productPrice)}
               {"₮"}
             </Typography>
-            <>Rating</>
+            <Rating value={avgStars} size="small" readOnly />
           </Stack>
           <Typography fontSize={17.67} fontWeight={400} color={"#9295AA"}>
             {productAdditional}

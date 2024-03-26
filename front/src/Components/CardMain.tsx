@@ -33,9 +33,11 @@ const style = {
 export const CardMain = (props: CardMainProps) => {
   const { productImage, productName, productColor, productPrice, productId } =
     props;
-  const { numberFormatter, updateReaction } = useData();
+  const { numberFormatter, updateReaction, cartProduct, setCartProduct } =
+    useData();
   const [open, setOpen] = useState(false);
   const [fav, setFav] = useState(false);
+  // console.log(cartProduct);
   return (
     <Stack width={1} height={1}>
       <Stack
@@ -87,6 +89,18 @@ export const CardMain = (props: CardMainProps) => {
               justifyContent={"center"}
               fontSize={20}
               sx={{ cursor: "pointer" }}
+              onClick={() => {
+                if (
+                  Boolean(
+                    cartProduct.find((item) => item.productId == productId)
+                  )
+                ) {
+                  setCartProduct((prev) => [
+                    ...prev,
+                    { productId, orderQty: 1 },
+                  ]);
+                }
+              }}
             >
               <ShoppingCartOutlined fontSize="inherit" color="inherit" />
             </Stack>

@@ -8,7 +8,8 @@ import { RecentlyAddedProducts } from "@/Components/RecentlyAddedProducts";
 import { Stack } from "@mui/material";
 
 export default function Home() {
-  const { allProducts } = useData();
+  const { allProducts, cartProduct } = useData();
+
   if (!allProducts.length) {
     return (
       <Stack minHeight={"100vh"}>

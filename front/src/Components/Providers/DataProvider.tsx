@@ -32,9 +32,16 @@ type ProductType = {
   productSize: string[];
   productTag: string[];
   productSoldQty: number;
+  stars: object;
+  avgStars: number;
+  reviewCount: number;
   updatedAt: string;
   createdAt: string;
   __v: number;
+};
+type CartType = {
+  productId: string;
+  orderQty: number;
 };
 
 type DataContextType = {
@@ -70,6 +77,8 @@ type DataContextType = {
   detailId: string;
   setDetailId: Dispatch<SetStateAction<string>>;
   addReview: (productId: string, star: number, comment: string) => void;
+  cartProduct: CartType[];
+  setCartProduct: Dispatch<SetStateAction<CartType[]>>;
 };
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
@@ -81,6 +90,7 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
   const [searchValue, setSearchValue] = useState("");
   const { isLogged, refresh, setRefresh } = useAuth();
   const [detailId, setDetailId] = useState("");
+  const [cartProduct, setCartProduct] = useState<CartType[]>([]);
 
   const numberFormatter = new Intl.NumberFormat("en-US", {
     style: "decimal",
@@ -252,10 +262,7 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         },
         { headers: { Authorization: localStorage.getItem("token") } }
       );
-      toast.success(dataComment.message, {
-        position: "top-center",
-        hideProgressBar: true,
-      });
+      setRefresh((prev) => prev + 1);
       toast.success(data.message, {
         position: "top-center",
         hideProgressBar: true,
@@ -293,6 +300,8 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         detailId,
         setDetailId,
         addReview,
+        cartProduct,
+        setCartProduct,
       }}
     >
       {children}

@@ -23,6 +23,8 @@ const productSchema = new Schema({
     4: { type: Number, required: false },
     5: { type: Number, required: false },
   },
+  avgStars: { type: Number, required: false },
+  reviewCount: { type: Number, required: false },
   updatedAt: Date,
   createdAt: Date,
 });

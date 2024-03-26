@@ -175,17 +175,14 @@ export const updateReaction: RequestHandler = async (req, res) => {
   }
 };
 
+type AddReviewBody = {
+  productId: string;
+  star: 1 | 2 | 3 | 4 | 5;
+};
+
 export const addReview: RequestHandler = async (req, res) => {
   try {
-    const { authorization } = req.headers;
-    const { productId, star } = req.body;
-
-    let userId = null;
-
-    if (authorization) {
-      const { id } = jwt.verify(authorization, "secret-key") as JwtPayload;
-      userId = id;
-    }
+    const { productId, star } = req.body as AddReviewBody;
 
     const editProduct = await ProductModel.findOne({
       _id: productId,
@@ -197,9 +194,48 @@ export const addReview: RequestHandler = async (req, res) => {
       });
     }
 
-    // const edit=await ProductModel.findOneAndUpdate({_id:productId},{stars.[2]:5})
+    const prevStars = editProduct.stars ?? {};
 
-    return res.json({ message: "Success" });
+    const prevStar = prevStars[star] ?? 0;
+
+    await ProductModel.updateOne(
+      { _id: productId },
+      {
+        stars: {
+          ...prevStars,
+          [star]: prevStar + 1,
+        },
+      }
+    );
+
+    const product = await ProductModel.findOne({ _id: productId });
+
+    if (!product) {
+      return res.status(401).json({
+        message: "Шинэчлэх бараа олдсонгүй.",
+      });
+    }
+    const pStars = product.stars ?? {};
+    const pStar1 = pStars[1] ?? 0;
+    const pStar2 = pStars[2] ?? 0;
+    const pStar3 = pStars[3] ?? 0;
+    const pStar4 = pStars[4] ?? 0;
+    const pStar5 = pStars[5] ?? 0;
+
+    const sumReview = pStar1 + pStar2 + pStar3 + pStar4 + pStar5;
+    const avgReview =
+      (pStar1 + 2 * pStar2 + 3 * pStar3 + 4 * pStar4 + 5 * pStar5) / sumReview;
+
+    const rCount = product.reviewCount ?? 0;
+
+    await ProductModel.updateOne(
+      { _id: productId },
+      {
+        avgStars: avgReview,
+        reviewCount: rCount + 1,
+      }
+    );
+    return res.json({ message: "Сэтгэгдэл нэмэгдлээ" });
   } catch (err) {
     res.json(err);
   }

@@ -17,6 +17,7 @@ export const ListProducts = () => {
           productPrice={item.productPrice}
           productAdditional={item.productAdditional}
           productId={item._id}
+          avgStars={item.avgStars}
         />
       ))}
     </Stack>

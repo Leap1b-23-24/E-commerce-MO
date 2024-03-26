@@ -5,6 +5,7 @@ import {
   Box,
   Container,
   Grid,
+  Rating,
   Stack,
   Tab,
   Tabs,
@@ -13,6 +14,27 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 import { ProductRating } from "./ProductRating";
+
+type userType = {
+  userName: string;
+  email: string;
+  merchName: string;
+  address: { city: string; district: string; khoroo: string };
+  experience: string;
+  merchType: string;
+  password: string;
+  role: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+type CommentType = {
+  userId: userType;
+  productId: string;
+  comment: string;
+  star: number;
+  createdAt: object;
+  updatedAt: object;
+};
 type ProductDetailCardProps = {
   productId?: string;
   productImage?: string[];
@@ -20,7 +42,9 @@ type ProductDetailCardProps = {
   productPrice?: number;
   productAdditional?: string;
   productColor?: string[];
-  //   productRating: number;
+  productRating?: number;
+  reviewCount?: number;
+  comments?: CommentType[];
 };
 export const ProductDetailCard = (props: ProductDetailCardProps) => {
   const { numberFormatter } = useData();
@@ -35,10 +59,11 @@ export const ProductDetailCard = (props: ProductDetailCardProps) => {
     productPrice,
     productAdditional,
     productColor,
+    productRating,
+    comments,
+    reviewCount,
   } = props;
-  const [bigImage, setBigImage] = useState(
-    productImage ? productImage[0] : "/google.png"
-  );
+  const [bigImage, setBigImage] = useState(productImage ? productImage[0] : "");
   return (
     <>
       <Stack flex={1} bgcolor="#F7F7F8" py={6}>
@@ -79,7 +104,7 @@ export const ProductDetailCard = (props: ProductDetailCardProps) => {
                 <Image
                   src={bigImage}
                   style={{ objectFit: "cover" }}
-                  alt="product"
+                  alt="select product image"
                   fill
                   sizes="small"
                 />
@@ -89,7 +114,12 @@ export const ProductDetailCard = (props: ProductDetailCardProps) => {
               <Typography fontSize={36} fontWeight={800} color={"#111C85"}>
                 {productName}
               </Typography>
-              <Stack>rating</Stack>
+              <Stack flexDirection={"row"} alignItems={"center"}>
+                <Rating value={productRating} readOnly />
+                {"("}
+                {reviewCount}
+                {")"}
+              </Stack>
               <Stack>
                 <Typography fontSize={32} fontWeight={400} color={"#151875"}>
                   {numberFormatter.format(productPrice || 0)}
@@ -138,7 +168,12 @@ export const ProductDetailCard = (props: ProductDetailCardProps) => {
               </Typography>
             </TabPanel>
             <TabPanel sx={{ backgroundColor: "#EEEFFB" }} value="2">
-              <ProductRating productId={productId} />
+              <ProductRating
+                productId={productId}
+                comments={comments}
+                productRating={productRating}
+                reviewCount={reviewCount}
+              />
             </TabPanel>
           </TabContext>
         </Container>

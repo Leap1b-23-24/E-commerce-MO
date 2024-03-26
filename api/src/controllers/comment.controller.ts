@@ -29,3 +29,12 @@ export const addComment: RequestHandler = async (req, res) => {
     res.json(err);
   }
 };
+
+export const getAllComments: RequestHandler = async (req, res) => {
+  try {
+    const allComments = await CommentModel.find({}).populate("userId");
+    return res.json(allComments);
+  } catch (err) {
+    res.json(err);
+  }
+};

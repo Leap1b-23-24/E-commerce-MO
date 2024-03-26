@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   const [test, setTest] = useState();
   const pathname = usePathname();
-  console.log(pathname.search("Merchant"), "s");
+
   return (
     <html lang="en">
       <body className={inter.className}>
