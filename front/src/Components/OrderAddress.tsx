@@ -4,12 +4,59 @@ import { Button, Checkbox, Stack, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useData } from "./Providers/DataProvider";
+import { useRouter } from "next/navigation";
+import { api } from "@/app/common/axios";
+import { toast } from "react-toastify";
+type CartType = {
+  productId: string;
+  merchId: string;
+  productImage: string[];
+  productName: string;
+  productColor: string[];
+  productPrice: number;
+  orderQty: number;
+};
+type DeliveryAddressType = {
+  phone: string;
+  firstName: string;
+  latName: string;
+  address: string;
+  extra: string;
+};
 const validationSchema = yup.object({
   phone: yup.string().required("Утасны дугаараа оруулна уу."),
   address: yup.string().required("Хаягийн мэдээллээ оруулна уу."),
 });
+
+const addReview = async (
+  cartProduct: CartType[],
+  deliveryAddress: DeliveryAddressType,
+  sumCart: number,
+  paymentType: string
+) => {
+  try {
+    const { data } = await api.post(
+      "order/addOrder",
+      { cartProduct, deliveryAddress, sumCart, paymentType },
+      { headers: { Authorization: localStorage.getItem("token") } }
+    );
+
+    // setRefresh((prev) => prev + 1);
+    toast.success(data.message, {
+      position: "top-center",
+      hideProgressBar: true,
+    });
+  } catch (error) {
+    console.log(error), "FFF";
+  }
+};
+
 export const OrderAddress = () => {
   const { cartProduct } = useData();
+  const router = useRouter();
+  const sumCart = cartProduct.reduce((sum, currentValue) => {
+    return sum + currentValue.productPrice * currentValue.orderQty;
+  }, 0);
   const formik = useFormik({
     initialValues: {
       phone: "",
@@ -20,14 +67,19 @@ export const OrderAddress = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(
-        values.phone,
-        values.firstName,
-        values.lastName,
-        values.address,
-        values.extra,
-        cartProduct
+      addReview(
+        cartProduct,
+        {
+          phone: values.phone,
+          firstName: values.firstName,
+          latName: values.lastName,
+          address: values.address,
+          extra: values.extra,
+        },
+        sumCart,
+        "Cash"
       );
+      router.push("/OrderSuccess");
     },
   });
 

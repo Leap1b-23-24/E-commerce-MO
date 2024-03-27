@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "next/image";
-import { useData } from "./Providers/DataProvider";
+import { useData } from "../Providers/DataProvider";
 import {
   Add,
   DeleteForeverOutlined,
@@ -63,6 +63,7 @@ export const Cart = (props: CartProps) => {
                       <Image
                         src={row.productImage[0]}
                         alt="product image"
+                        style={{ objectFit: "cover" }}
                         fill
                         sizes="small"
                         priority={true}

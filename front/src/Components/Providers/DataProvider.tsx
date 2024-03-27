@@ -12,6 +12,8 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "./AuthProvider";
+import { LoadingPage } from "../LoadingPage";
+import { usePathname } from "next/navigation";
 type CategoryType = {
   categoryName: string;
   updatedAt: Date;
@@ -41,11 +43,29 @@ type ProductType = {
 };
 type CartType = {
   productId: string;
+  merchId: string;
   productImage: string[];
   productName: string;
   productColor: string[];
   productPrice: number;
   orderQty: number;
+};
+
+type MerchOrdersType = {
+  userId: string;
+  status: string;
+  deliveryAddress: {
+    phone: string;
+    firstName: string;
+    latName: string;
+    address: string;
+    extra: string;
+  };
+  cartProduct: CartType[];
+  sumCart: number;
+  paymentType: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 type DataContextType = {
@@ -63,6 +83,8 @@ type DataContextType = {
     productTag: string[],
     editId: string
   ) => void;
+  isReady: boolean;
+  setIsReady: Dispatch<SetStateAction<boolean>>;
   products: ProductType[];
   allProducts: ProductType[];
   setProducts: Dispatch<SetStateAction<ProductType[]>>;
@@ -83,10 +105,13 @@ type DataContextType = {
   addReview: (productId: string, star: number, comment: string) => void;
   cartProduct: CartType[];
   setCartProduct: Dispatch<SetStateAction<CartType[]>>;
+  merchOrders: MerchOrdersType[];
+  setMerchOrders: Dispatch<SetStateAction<MerchOrdersType[]>>;
 };
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
+  const [isReady, setIsReady] = useState(true);
   const [products, setProducts] = useState<ProductType[]>([]);
   const [allProducts, setAllProducts] = useState<ProductType[]>([]);
   const [allCategories, setAllCategories] = useState<CategoryType[]>([]);
@@ -96,6 +121,8 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
   const [detailId, setDetailId] = useState("");
   const [cartProduct, setCartProduct] = useState<CartType[]>([]);
   const [isFirstRender, setIsFirstRender] = useState(true);
+  const [merchOrders, setMerchOrders] = useState<MerchOrdersType[]>([]);
+  const pathname = usePathname();
 
   const numberFormatter = new Intl.NumberFormat("en-US", {
     style: "decimal",
@@ -277,6 +304,23 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const getMerchOrders = async () => {
+    try {
+      const { data } = await api.get("order/getMerchOrders", {
+        headers: { Authorization: localStorage.getItem("token") },
+      });
+      setMerchOrders(data);
+    } catch (error) {
+      console.log(error), "FFF";
+    }
+  };
+
+  useEffect(() => {
+    if (pathname.includes("Merchant")) {
+      getMerchOrders();
+    }
+  }, []);
+
   useEffect(() => {
     if (isLogged) {
       getProducts();
@@ -284,8 +328,10 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
   }, [isLogged, refresh]);
 
   useEffect(() => {
+    setIsReady(false);
     getAllProducts();
     getAllCategories();
+    setIsReady(true);
   }, [refresh]);
 
   useEffect(() => {
@@ -304,6 +350,8 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
   return (
     <DataContext.Provider
       value={{
+        isReady,
+        setIsReady,
         addProduct,
         products,
         setProducts,
@@ -325,9 +373,11 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         addReview,
         cartProduct,
         setCartProduct,
+        merchOrders,
+        setMerchOrders,
       }}
     >
-      {children}
+      {isReady ? children : <LoadingPage />}
     </DataContext.Provider>
   );
 };

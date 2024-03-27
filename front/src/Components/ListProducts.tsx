@@ -11,6 +11,7 @@ export const ListProducts = () => {
       {allProducts.map((item, index) => (
         <ListCardProduct
           key={index}
+          merchId={item.merchId}
           productName={item.productName}
           productImage={item.productImage}
           productColor={item.productColor}

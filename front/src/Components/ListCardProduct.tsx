@@ -10,10 +10,11 @@ import { Box, Button, Modal, Rating, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useData } from "./Providers/DataProvider";
 import { useState } from "react";
-import { ProductDetail } from "./ProductDetail";
+import { ProductDetail } from "./ProductDetail/ProductDetail";
 import { useRouter } from "next/navigation";
 
 type ListCardProductProps = {
+  merchId: string;
   productImage: string[];
   productName: string;
   productColor: string[];
@@ -38,6 +39,7 @@ const style = {
 };
 export const ListCardProduct = (props: ListCardProductProps) => {
   const {
+    merchId,
     productImage,
     productName,
     productColor,
@@ -138,6 +140,7 @@ export const ListCardProduct = (props: ListCardProductProps) => {
                     ...prev,
                     {
                       productId,
+                      merchId,
                       productImage,
                       productName,
                       productColor,

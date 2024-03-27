@@ -3,7 +3,7 @@ import { CustomInput } from "./Authentication/CustomInput";
 import { LeftButton } from "./MerchantDashboard/Leftbutton";
 import { NextBtn } from "./MerchantDashboard/NextBtn";
 import { ChangeEventHandler, Dispatch, SetStateAction } from "react";
-import { PlaceOutlined } from "@mui/icons-material";
+
 type RegionInfoProps = {
   setStep: Dispatch<SetStateAction<number>>;
   city: string;

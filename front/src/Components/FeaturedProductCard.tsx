@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 type FeaturedProductCardProps = {
+  merchId: string;
   productImage: string[];
   productName: string;
   productPrice: number;
@@ -28,6 +29,7 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
     setPaused,
     productId,
     productColor,
+    merchId,
   } = props;
   const {
     numberFormatter,
@@ -117,6 +119,7 @@ export const FeaturedProductCard = (props: FeaturedProductCardProps) => {
                     ...prev,
                     {
                       productId,
+                      merchId,
                       productImage,
                       productName,
                       productColor,

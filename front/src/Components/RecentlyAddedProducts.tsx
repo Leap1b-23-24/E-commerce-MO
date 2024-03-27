@@ -24,6 +24,7 @@ export const RecentlyAddedProducts = () => {
             <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
               <Stack width={270}>
                 <CardMain
+                  merchId={item.merchId}
                   productImage={item.productImage}
                   productName={item.productName}
                   productPrice={item.productPrice}

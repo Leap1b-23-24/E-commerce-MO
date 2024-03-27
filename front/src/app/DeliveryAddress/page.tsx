@@ -9,6 +9,7 @@ export default function DeliveryAddress() {
   const sumCart = cartProduct.reduce((sum, currentValue) => {
     return sum + currentValue.productPrice * currentValue.orderQty;
   }, 0);
+  console.log(cartProduct);
   return (
     <Stack my={12}>
       <Container maxWidth="lg">

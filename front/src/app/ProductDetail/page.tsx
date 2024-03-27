@@ -1,5 +1,5 @@
 "use client";
-import { ProductDetailCard } from "@/Components/ProductDetailCard";
+import { ProductDetailCard } from "@/Components/ProductDetail/ProductDetailCard";
 import { useData } from "@/Components/Providers/DataProvider";
 import { Stack } from "@mui/material";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";

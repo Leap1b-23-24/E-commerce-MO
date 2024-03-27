@@ -1,5 +1,5 @@
 "use client";
-import { Cart } from "@/Components/Cart";
+import { Cart } from "@/Components/ShoppingCart/Cart";
 import { useData } from "@/Components/Providers/DataProvider";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";

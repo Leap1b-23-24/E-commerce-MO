@@ -1,7 +1,8 @@
 "use client";
 import { Container, Stack } from "@mui/material";
+
+import { useData } from "../Providers/DataProvider";
 import { HomeCarouselCard } from "./HomeCarouselCard";
-import { useData } from "./Providers/DataProvider";
 
 export const HomeCarousel = () => {
   const { allProducts } = useData();

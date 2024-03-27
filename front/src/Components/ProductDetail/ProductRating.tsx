@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useData } from "./Providers/DataProvider";
+import { useData } from "../Providers/DataProvider";
 import { useState } from "react";
 const validationSchema = yup.object({
   comment: yup.string(),

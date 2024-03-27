@@ -63,6 +63,7 @@ export const FeaturedProducts = () => {
               .map((item, index) => (
                 <Stack key={index} width={1 / 2}>
                   <FeaturedProductCard
+                    merchId={item.merchId}
                     productName={item.productName}
                     productImage={item.productImage}
                     productPrice={item.productPrice}

@@ -35,7 +35,12 @@ export const DashboardTotalCard = (props: DashboardTotalCardProps) => {
         {text == "Хэрэглэгч" && numberFormatter.format(userCount)}
       </Typography>
 
-      <Typography fontSize={14} fontWeight={400} color={"#5E6166"}>
+      <Typography
+        fontSize={14}
+        fontWeight={400}
+        color={"#5E6166"}
+        sx={{ cursor: "pointer" }}
+      >
         Өнөөдөр
       </Typography>
     </Stack>

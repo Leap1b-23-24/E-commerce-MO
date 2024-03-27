@@ -9,9 +9,10 @@ import { Box, Button, Modal, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useData } from "./Providers/DataProvider";
 import { useState } from "react";
-import { ProductDetail } from "./ProductDetail";
+import { ProductDetail } from "./ProductDetail/ProductDetail";
 import { useRouter } from "next/navigation";
 type CardMainProps = {
+  merchId: string;
   productImage: string[];
   productName: string;
   productColor: string[];
@@ -32,8 +33,14 @@ const style = {
   borderRadius: "8px",
 };
 export const CardMain = (props: CardMainProps) => {
-  const { productImage, productName, productColor, productPrice, productId } =
-    props;
+  const {
+    productImage,
+    productName,
+    productColor,
+    productPrice,
+    productId,
+    merchId,
+  } = props;
   const { numberFormatter, updateReaction, cartProduct, setCartProduct } =
     useData();
   const [open, setOpen] = useState(false);
@@ -101,6 +108,7 @@ export const CardMain = (props: CardMainProps) => {
                     ...prev,
                     {
                       productId,
+                      merchId,
                       productImage,
                       productName,
                       productColor,
