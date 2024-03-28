@@ -19,7 +19,7 @@ type CategoryType = {
   updatedAt: Date;
   createdAt: Date;
 };
-type ProductType = {
+export type ProductType = {
   _id: string;
   merchId: string;
   productName: string;
@@ -41,7 +41,7 @@ type ProductType = {
   createdAt: string;
   __v: number;
 };
-type CartType = {
+export type CartType = {
   productId: string;
   merchId: string;
   productImage: string[];
@@ -49,7 +49,8 @@ type CartType = {
   productColor: string[];
   productPrice: number;
   orderQty: number;
-  userId: string;
+  userId?: string;
+  createdAt?: Date;
 };
 
 type MerchOrdersType = {

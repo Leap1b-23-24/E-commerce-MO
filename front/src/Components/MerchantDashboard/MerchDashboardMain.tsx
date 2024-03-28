@@ -3,6 +3,7 @@ import { Stack } from "@mui/material";
 import { DashboardTotalCard } from "./DashboardTotalCard";
 import { useData } from "../Providers/DataProvider";
 import { useEffect, useState } from "react";
+import { LoadingPage } from "../LoadingPage";
 type userType = {
   userId: string;
 };

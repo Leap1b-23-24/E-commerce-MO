@@ -20,10 +20,10 @@ export default function MerchantDashbaord() {
 
   const router = useRouter();
 
-  // if (!isLogged) {
-  //   router.push("/Signin");
-  //   return <LoadingPage />;
-  // }
+  if (!isLogged) {
+    router.push("/Signin");
+    return <LoadingPage />;
+  }
 
   return (
     <Stack>

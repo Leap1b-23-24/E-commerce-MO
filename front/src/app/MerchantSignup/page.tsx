@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useAuth } from "@/Components/Providers/AuthProvider";
+import { useRouter } from "next/navigation";
 
 const validationSchema = yup.object({
   userName: yup.string().required("Хэрэглэгчийн нэр оруулна уу!"),
@@ -32,6 +33,7 @@ const validationSchema = yup.object({
 export default function Signup() {
   const [step, setStep] = useState(-1);
   const { signUp } = useAuth();
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       userName: "",
@@ -65,8 +67,16 @@ export default function Signup() {
     <Stack
       sx={{ height: "100vh" }}
       justifyContent={step < 0 ? "space-between" : "start"}
+      flex={1}
     >
-      <Stack mt={"44px"} ml={"44px"}>
+      <Stack
+        mt={"44px"}
+        ml={"44px"}
+        onClick={() => {
+          router.push("/");
+        }}
+        sx={{ cursor: "pointer" }}
+      >
         <Image
           alt="logo"
           src="/pinecone.png"

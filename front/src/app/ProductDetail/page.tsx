@@ -28,15 +28,15 @@ type CommentType = {
   updatedAt: Date;
 };
 
-type ProductDetailProps = {
-  allComments: CommentType[];
-  setAllComments: Dispatch<SetStateAction<CommentType[]>>;
-};
-const detailId = localStorage.getItem("detailId");
-export default function ProductDetail(props: ProductDetailProps) {
+// type ProductDetailProps = {
+//   allComments: any;
+//   setAllComments: Dispatch<SetStateAction<any>>;
+// };
+
+export default function ProductDetail() {
   const { allProducts, detailId } = useData();
   const { setRefresh, refresh } = useAuth();
-  const [allComments, setAllComments] = useState<CommentType[]>([]);
+  const [allComments, setAllComments] = useState<any>([]);
   const router = useRouter();
   const selectedProduct = allProducts.find(
     (product) => product._id == detailId
@@ -50,7 +50,7 @@ export default function ProductDetail(props: ProductDetailProps) {
     }
   };
   const selectedProductComments = allComments.filter(
-    (comment) => comment.productId == detailId
+    (comment: any) => comment.productId == detailId
   );
 
   useEffect(() => {

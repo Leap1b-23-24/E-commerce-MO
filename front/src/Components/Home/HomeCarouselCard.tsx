@@ -1,4 +1,5 @@
 import { Button, Stack, Typography } from "@mui/material";
+import Image from "next/image";
 
 export const HomeCarouselCard = () => {
   return (
@@ -33,7 +34,28 @@ export const HomeCarouselCard = () => {
           <Typography>Дэлгэрэнгүй</Typography>
         </Button>
       </Stack>
-      <Stack width={0.5}></Stack>
+      <Stack width={0.5} alignItems={"center"} justifyContent={"center"}>
+        <Stack
+          alignItems={"center"}
+          justifyContent={"center"}
+          position={"relative"}
+          style={{ width: "70%", aspectRatio: 7 / 6 }}
+        >
+          <Image
+            alt="carousel"
+            width={300}
+            height={300}
+            src={"/sofa.png"}
+            style={{ zIndex: "2" }}
+          />
+          <Image
+            alt="carousel"
+            fill
+            src={"/sale.png"}
+            style={{ position: "absolute", right: -40, zIndex: 0 }}
+          />
+        </Stack>
+      </Stack>
     </Stack>
   );
 };

@@ -72,25 +72,25 @@ export const Chart1 = () => {
     setSevenDays(seven);
   }
   const cart = merchOrders.map((item) => item._doc);
-  const newMerchOrders = cart.filter(
-    (item) =>
-      new Date(item.createdAt).toLocaleDateString() ==
-      new Date().toLocaleDateString()
-  );
-  const sales = merchOrders.map((item) => item.cartProduct);
+  // const newMerchOrders = cart.filter(
+  //   (item) =>
+  //     new Date(item.createdAt).toLocaleDateString() ==
+  //     new Date().toLocaleDateString()
+  // );
+  // const sales = merchOrders.map((item) => item.cartProduct);
 
-  const totalIncome = sales.reduce(
-    (sum, el) =>
-      sum +
-      el.reduce(
-        (total, product) => total + product.orderQty * product.productPrice,
-        0
-      ),
-    0
-  );
-  const zz = new Date().toLocaleDateString();
-  console.log("zz", zz);
-  console.log("today", newMerchOrders);
+  // const totalIncome = sales.reduce(
+  //   (sum, el) =>
+  //     sum +
+  //     el.reduce(
+  //       (total, product) => total + product.orderQty * product.productPrice,
+  //       0
+  //     ),
+  //   0
+  // );
+  // const zz = new Date().toLocaleDateString();
+  // console.log("zz", zz);
+  // console.log("today", newMerchOrders);
 
   useEffect(() => {
     Last7Days();
@@ -104,7 +104,7 @@ export const Chart1 = () => {
     labels,
     datasets: [
       {
-        data: [100, 120],
+        data: [100, 120, 130, 140, 150, 100, 120],
         backgroundColor: "#121316",
         barPercentage: 0.2,
         borderRadius: 100,

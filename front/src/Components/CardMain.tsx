@@ -11,12 +11,16 @@ import { useData } from "./Providers/DataProvider";
 import { useState } from "react";
 import { ProductDetail } from "./ProductDetail/ProductDetail";
 import { useRouter } from "next/navigation";
+import { CartType } from "./Providers/DataProvider";
+import { ProductType } from "./Providers/DataProvider";
+
 type CardMainProps = {
-  merchId: string;
+  merchId?: string;
   productImage: string[];
   productName: string;
   productColor: string[];
   productPrice: number;
+  userId?: string;
   productId: string;
 };
 const style = {
@@ -41,11 +45,15 @@ export const CardMain = (props: CardMainProps) => {
     productId,
     merchId,
   } = props;
-  const { numberFormatter, updateReaction, cartProduct, setCartProduct } =
-    useData();
+  const {
+    numberFormatter,
+    updateReaction,
+    cartProduct,
+    setCartProduct,
+    setDetailId,
+  } = useData();
   const [open, setOpen] = useState(false);
   const [fav, setFav] = useState(false);
-  const { setDetailId } = useData();
   const router = useRouter();
   const isInCart = Boolean(
     cartProduct.find((item) => item.productId == productId)
@@ -104,7 +112,7 @@ export const CardMain = (props: CardMainProps) => {
               sx={{ cursor: "pointer" }}
               onClick={() => {
                 if (!isInCart) {
-                  setCartProduct((prev) => [
+                  setCartProduct((prev: any) => [
                     ...prev,
                     {
                       productId,
