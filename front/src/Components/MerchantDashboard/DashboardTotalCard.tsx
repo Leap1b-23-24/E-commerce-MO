@@ -4,12 +4,12 @@ import { Stack, Typography } from "@mui/material";
 import { useData } from "../Providers/DataProvider";
 type DashboardTotalCardProps = {
   text: string;
-  incomeCount: number;
+  totalIncome: number;
   orderCount: number;
   userCount: number;
 };
 export const DashboardTotalCard = (props: DashboardTotalCardProps) => {
-  const { text, incomeCount, orderCount, userCount } = props;
+  const { text, totalIncome, orderCount, userCount } = props;
   const { numberFormatter } = useData();
   return (
     <Stack
@@ -30,7 +30,7 @@ export const DashboardTotalCard = (props: DashboardTotalCardProps) => {
       </Stack>
 
       <Typography color={"secondary.dark"} fontSize={32} fontWeight={700}>
-        {text == "Орлого" && numberFormatter.format(incomeCount)}
+        {text == "Орлого" && numberFormatter.format(totalIncome)}
         {text == "Захиалга" && numberFormatter.format(orderCount)}
         {text == "Хэрэглэгч" && numberFormatter.format(userCount)}
       </Typography>

@@ -42,7 +42,7 @@ export const MerchantDashboardLeft = () => {
     >
       {merchantNavList.map((item, index) => (
         <Stack
-          key={index}
+          key={item && index}
           flexDirection={"row"}
           bgcolor={pathname == item.path ? "#1C202414" : "fff"}
           sx={{

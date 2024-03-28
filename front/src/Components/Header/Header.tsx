@@ -52,10 +52,15 @@ export const Header = () => {
           </Stack>
           <Stack flexDirection={"row"} alignItems={"center"} gap={"29px"}>
             <Stack
+              onClick={() => {
+                router.push("/Signin");
+              }}
               flexDirection={"row"}
+              alignItems={"center"}
               gap={"3px"}
               fontSize={"24px"}
               color={"#F1F1F1"}
+              sx={{ cursor: "pointer" }}
             >
               <Typography fontSize={16} fontWeight={600}>
                 Нэвтрэх

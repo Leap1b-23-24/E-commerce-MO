@@ -58,7 +58,7 @@ export const TopSales = (props: TopSalesProps) => {
               .filter((product, index) => index < 20)
               .map((row, number) => (
                 <TableRow
-                  key={row.productName}
+                  key={number}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell align="center">{number + 1}</TableCell>
@@ -77,8 +77,10 @@ export const TopSales = (props: TopSalesProps) => {
                       >
                         <Image
                           src={row.productImage[0]}
+                          style={{ objectFit: "cover" }}
                           alt="product image"
                           fill
+                          sizes="small"
                         />
                       </Stack>
                       <Stack gap={0.5}>

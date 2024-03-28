@@ -2,7 +2,10 @@
 import { Stack } from "@mui/material";
 import { DashboardTotalCard } from "./DashboardTotalCard";
 import { useData } from "../Providers/DataProvider";
-
+import { useEffect, useState } from "react";
+type userType = {
+  userId: string;
+};
 export const MerchantDashbaordMain = () => {
   const dashboardTotalItem = [
     { text: "Орлого" },
@@ -10,13 +13,30 @@ export const MerchantDashbaordMain = () => {
     { text: "Хэрэглэгч" },
   ];
   const { merchOrders } = useData();
-  const incomeCount = 400000;
-  const orderCount = 1450;
-  const userCount = 2460;
-  // const newOrders = merchOrders.map((item) => item.);
-  // const sumCart = merchOrders..reduce((sum, currentValue) => {
-  //   return sum + currentValue.productPrice * currentValue.orderQty;
-  // }, 0);
+  const [user, setUser] = useState<userType[]>([]);
+
+  const cart = merchOrders?.map((item) => item.cartProduct);
+  console.log("cart", cart);
+
+  const totalIncome = cart.reduce(
+    (sum, el) =>
+      sum +
+      el.reduce(
+        (total, product) => total + product.orderQty * product.productPrice,
+        0
+      ),
+    0
+  );
+
+  const orderCount = cart.length;
+
+  const ordersDoc = merchOrders.map((item) => item._doc);
+  const user2 = ordersDoc.forEach((item) => {
+    if (!user.includes(item.userId)) {
+      setUser([...user, item.userId]);
+    }
+  });
+  const userCount = user.length;
 
   return (
     <Stack>
@@ -31,7 +51,7 @@ export const MerchantDashbaordMain = () => {
           <DashboardTotalCard
             key={index}
             text={item.text}
-            incomeCount={incomeCount}
+            totalIncome={totalIncome}
             orderCount={orderCount}
             userCount={userCount}
           />

@@ -7,6 +7,7 @@ import { useData } from "./Providers/DataProvider";
 import { useRouter } from "next/navigation";
 import { api } from "@/app/common/axios";
 import { toast } from "react-toastify";
+import { useAuth } from "./Providers/AuthProvider";
 type CartType = {
   productId: string;
   merchId: string;
@@ -28,35 +29,36 @@ const validationSchema = yup.object({
   address: yup.string().required("Хаягийн мэдээллээ оруулна уу."),
 });
 
-const addReview = async (
-  cartProduct: CartType[],
-  deliveryAddress: DeliveryAddressType,
-  sumCart: number,
-  paymentType: string
-) => {
-  try {
-    const { data } = await api.post(
-      "order/addOrder",
-      { cartProduct, deliveryAddress, sumCart, paymentType },
-      { headers: { Authorization: localStorage.getItem("token") } }
-    );
-
-    // setRefresh((prev) => prev + 1);
-    toast.success(data.message, {
-      position: "top-center",
-      hideProgressBar: true,
-    });
-  } catch (error) {
-    console.log(error), "FFF";
-  }
-};
-
 export const OrderAddress = () => {
+  const { setRefresh } = useAuth();
   const { cartProduct } = useData();
   const router = useRouter();
   const sumCart = cartProduct.reduce((sum, currentValue) => {
     return sum + currentValue.productPrice * currentValue.orderQty;
   }, 0);
+
+  const addReview = async (
+    cartProduct: CartType[],
+    deliveryAddress: DeliveryAddressType,
+    sumCart: number,
+    paymentType: string
+  ) => {
+    try {
+      const { data } = await api.post(
+        "order/addOrder",
+        { cartProduct, deliveryAddress, sumCart, paymentType },
+        { headers: { Authorization: localStorage.getItem("token") } }
+      );
+
+      setRefresh((prev) => prev + 1);
+      toast.success(data.message, {
+        position: "top-center",
+        hideProgressBar: true,
+      });
+    } catch (error) {
+      console.log(error), "FFF";
+    }
+  };
   const formik = useFormik({
     initialValues: {
       phone: "",

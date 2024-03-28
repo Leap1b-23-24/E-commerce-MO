@@ -49,6 +49,7 @@ type CartType = {
   productColor: string[];
   productPrice: number;
   orderQty: number;
+  userId: string;
 };
 
 type MerchOrdersType = {
@@ -66,6 +67,7 @@ type MerchOrdersType = {
   paymentType: string;
   createdAt: Date;
   updatedAt: Date;
+  _doc: CartType[];
 };
 
 type DataContextType = {
@@ -310,16 +312,13 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         headers: { Authorization: localStorage.getItem("token") },
       });
       setMerchOrders(data);
+      const cart = merchOrders.map((item) => item.cartProduct);
+
+      console.log(cart);
     } catch (error) {
       console.log(error), "FFF";
     }
   };
-
-  useEffect(() => {
-    if (pathname.includes("Merchant")) {
-      getMerchOrders();
-    }
-  }, []);
 
   useEffect(() => {
     if (isLogged) {
@@ -331,14 +330,16 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     setIsReady(false);
     getAllProducts();
     getAllCategories();
+    getMerchOrders();
     setIsReady(true);
-  }, [refresh]);
+  }, [refresh, isLogged]);
 
   useEffect(() => {
     const cart = localStorage.getItem("cartProduct");
     if (cart) {
       setCartProduct(JSON.parse(cart));
     }
+
     setIsFirstRender(false);
   }, []);
 

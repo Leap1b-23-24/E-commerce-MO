@@ -47,6 +47,7 @@ export const getMerchOrders: RequestHandler = async (req, res) => {
       cartProduct: item.cartProduct.filter((el) => el.merchId == id),
     }));
 
+    console.log(merchOrders);
     return res.json(merchOrders);
   } catch (err) {
     res.json(err);

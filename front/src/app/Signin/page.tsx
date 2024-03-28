@@ -36,7 +36,7 @@ export default function Signin() {
   });
   return (
     <Stack sx={{ height: "100vh" }} justifyContent={"space-between"}>
-      <Stack mt={"44px"} ml={"44px"}>
+      {/* <Stack mt={"44px"} ml={"44px"}>
         <Image
           alt="logo"
           src="/pinecone.png"
@@ -44,7 +44,7 @@ export default function Signin() {
           width={194}
           height={32}
         />
-      </Stack>
+      </Stack> */}
 
       <Stack alignItems={"center"} width={1} mt={"58px"}>
         <SignIn
@@ -61,7 +61,7 @@ export default function Signin() {
           helperTextPassword={formik.touched.password && formik.errors.password}
         />
       </Stack>
-      <Typography
+      {/* <Typography
         textAlign={"center"}
         fontSize={12}
         fontWeight={400}
@@ -71,7 +71,7 @@ export default function Signin() {
         mt={"86px"}
       >
         © 2023 Pinecone
-      </Typography>
+      </Typography> */}
     </Stack>
   );
 }
