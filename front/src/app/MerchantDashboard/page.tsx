@@ -8,10 +8,7 @@ import { MerchantDashboardLeft } from "@/Components/MerchantDashboard/MerchantDa
 import { MerchantDashbaordTop } from "@/Components/MerchantDashboard/MerchantDashboardTop";
 import { useAuth } from "@/Components/Providers/AuthProvider";
 import { Box, Stack } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { api } from "../common/axios";
-import { useEffect, useState } from "react";
-import { string } from "yup";
+import { redirect, useRouter } from "next/navigation";
 import { useData } from "@/Components/Providers/DataProvider";
 
 export default function MerchantDashbaord() {
@@ -21,7 +18,7 @@ export default function MerchantDashbaord() {
   const router = useRouter();
 
   if (!isLogged) {
-    router.push("/Signin");
+    redirect("/Signin");
     return <LoadingPage />;
   }
 

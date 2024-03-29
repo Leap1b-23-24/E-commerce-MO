@@ -2,10 +2,10 @@
 import { ProductDetailCard } from "@/Components/ProductDetail/ProductDetailCard";
 import { useData } from "@/Components/Providers/DataProvider";
 import { Stack } from "@mui/material";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../common/axios";
 import { useAuth } from "@/Components/Providers/AuthProvider";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 type userType = {
   userName: string;
@@ -56,8 +56,9 @@ export default function ProductDetail() {
   useEffect(() => {
     getAllComments();
   }, [refresh]);
+
   if (!detailId) {
-    router.push("/");
+    redirect("/");
   }
   return (
     <Stack>
