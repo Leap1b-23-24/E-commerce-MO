@@ -32,7 +32,7 @@ export const MerchantDashbaordMain = () => {
   const orderCount = cart.length;
 
   const ordersDoc = merchOrders.map((item) => item._doc);
-  const user2 = ordersDoc.forEach((item) => {
+  const user2 = ordersDoc.forEach((item: any) => {
     if (!user.includes(item.userId)) {
       setUser([...user, item.userId]);
     }
