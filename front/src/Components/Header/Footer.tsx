@@ -1,3 +1,4 @@
+"use client";
 import {
   Button,
   Container,
@@ -8,6 +9,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { CustomInput } from "../Authentication/CustomInput";
+import { useRouter } from "next/navigation";
 
 const footerMenu = ["Бидний тухай", "Холбоо барих", "Түгээмэл асуулт хариулт"];
 const footerCategory = [
@@ -21,6 +23,7 @@ const footerCategory = [
 const socialImg = ["/facebook.png", "/intagram.png", "/twitter.png"];
 
 export const Footer = () => {
+  const router = useRouter();
   return (
     <>
       <Stack width={1} bgcolor={"#EEEFFB"}>
@@ -55,6 +58,10 @@ export const Footer = () => {
                     endAdornment: (
                       <InputAdornment position="end">
                         <Stack
+                          onClick={() => {
+                            router.push("/MerchantSignup");
+                          }}
+                          sx={{ cursor: "pointer" }}
                           position={"absolute"}
                           right={0}
                           bgcolor={"primary.light"}

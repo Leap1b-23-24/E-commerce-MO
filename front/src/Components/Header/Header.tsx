@@ -17,9 +17,11 @@ import {
 import Image from "next/image";
 import { useData } from "../Providers/DataProvider";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../Providers/AuthProvider";
 
 export const Header = () => {
   const { cartProduct } = useData();
+  const { user } = useAuth();
   const router = useRouter();
   return (
     <Stack bgcolor={"primary.main"} py={"14px"} width={1}>
@@ -63,7 +65,7 @@ export const Header = () => {
               sx={{ cursor: "pointer" }}
             >
               <Typography fontSize={16} fontWeight={600}>
-                Нэвтрэх
+                {user ? user.userName : "Нэвтрэх"}
               </Typography>
               <PersonOutline fontSize="small" />
             </Stack>

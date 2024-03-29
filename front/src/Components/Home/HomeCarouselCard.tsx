@@ -1,7 +1,12 @@
+"use client";
 import { Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
+import { useData } from "../Providers/DataProvider";
+import { useRouter } from "next/navigation";
 
 export const HomeCarouselCard = () => {
+  const { setDetailId } = useData();
+  const router = useRouter();
   return (
     <Stack flexDirection={"row"} bgcolor={"#F2F0FF"} width={1}>
       <Stack width={0.5} my={"203px"}>
@@ -22,6 +27,10 @@ export const HomeCarouselCard = () => {
           байна
         </Typography>
         <Button
+          onClick={() => {
+            setDetailId("66060ba2be553b294cdb94e6");
+            router.push("/ProductDetail");
+          }}
           variant="contained"
           color="success"
           sx={{
