@@ -328,11 +328,14 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
   }, [isLogged, refresh]);
 
   useEffect(() => {
-    setIsReady(false);
-    getAllProducts();
-    getAllCategories();
-    getMerchOrders();
-    setIsReady(true);
+    const getFinc = async () => {
+      setIsReady(false);
+      await getAllProducts();
+      await getAllCategories();
+      await getMerchOrders();
+      setIsReady(true);
+    };
+    getFinc();
   }, [refresh, isLogged]);
 
   useEffect(() => {
