@@ -24,7 +24,7 @@ export default function MerchantDashbaord() {
 
   return (
     <>
-      {!isLogged ? (
+      {isLogged ? (
         <Stack>
           <MerchantDashboardHeader />
           <Stack flexDirection={"row"}>
