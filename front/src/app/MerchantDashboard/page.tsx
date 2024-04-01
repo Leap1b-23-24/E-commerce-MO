@@ -19,35 +19,40 @@ export default function MerchantDashbaord() {
   useEffect(() => {
     if (!isLogged) {
       redirect("/Signin");
-      // return <LoadingPage />;
     }
   }, [isLogged]);
 
   return (
-    <Stack>
-      <MerchantDashboardHeader />
-      <Stack flexDirection={"row"}>
-        <Box minWidth={"222px"}>
-          <MerchantDashboardLeft />
-        </Box>
-        <Stack
-          pt={"34px"}
-          pb={"66px"}
-          gap={"34px"}
-          px={3}
-          width={1}
-          bgcolor={"#F7F7F8"}
-        >
-          <MerchantDashbaordMain />
-          <Stack flexDirection={"row"} gap={3}>
-            <MerchantDashbaordTop />
-            <Stack width={0.5} gap={3}>
-              <MerchantDashbaordChart1 />
-              <MerchantDashbaordChart2 />
+    <>
+      {!isLogged ? (
+        <Stack>
+          <MerchantDashboardHeader />
+          <Stack flexDirection={"row"}>
+            <Box minWidth={"222px"}>
+              <MerchantDashboardLeft />
+            </Box>
+            <Stack
+              pt={"34px"}
+              pb={"66px"}
+              gap={"34px"}
+              px={3}
+              width={1}
+              bgcolor={"#F7F7F8"}
+            >
+              <MerchantDashbaordMain />
+              <Stack flexDirection={"row"} gap={3}>
+                <MerchantDashbaordTop />
+                <Stack width={0.5} gap={3}>
+                  <MerchantDashbaordChart1 />
+                  <MerchantDashbaordChart2 />
+                </Stack>
+              </Stack>
             </Stack>
           </Stack>
         </Stack>
-      </Stack>
-    </Stack>
+      ) : (
+        <LoadingPage />
+      )}
+    </>
   );
 }
