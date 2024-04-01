@@ -8,19 +8,20 @@ import { MerchantDashboardLeft } from "@/Components/MerchantDashboard/MerchantDa
 import { MerchantDashbaordTop } from "@/Components/MerchantDashboard/MerchantDashboardTop";
 import { useAuth } from "@/Components/Providers/AuthProvider";
 import { Box, Stack } from "@mui/material";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 import { useData } from "@/Components/Providers/DataProvider";
 
 export default function MerchantDashbaord() {
   const { isLogged } = useAuth();
   const { merchOrders } = useData();
 
-  const router = useRouter();
-
-  if (!isLogged) {
-    redirect("/Signin");
-    return <LoadingPage />;
-  }
+  useEffect(() => {
+    if (!isLogged) {
+      redirect("/Signin");
+      // return <LoadingPage />;
+    }
+  }, [isLogged]);
 
   return (
     <Stack>
