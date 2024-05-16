@@ -1,4 +1,4 @@
-import { CircularProgress, Stack } from "@mui/material";
+import { CircularProgress, Stack,Typography } from "@mui/material";
 
 export const LoadingPage = () => {
   return (
